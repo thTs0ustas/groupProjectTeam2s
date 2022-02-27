@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "movieOfTheMonth",
+      modelName: "MovieOfTheMonth",
       tableName: "movies_of_the_month",
     }
   );

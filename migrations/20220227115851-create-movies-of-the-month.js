@@ -10,6 +10,7 @@ module.exports = {
       },
       movie_id: {
         type: Sequelize.INTEGER,
+        require: true,
         references: {
           model: "movies",
           key: "id",
@@ -17,6 +18,7 @@ module.exports = {
       },
       admin_id: {
         type: Sequelize.INTEGER,
+        require: true,
         references: {
           model: "users",
           key: "id",

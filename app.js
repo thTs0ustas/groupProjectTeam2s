@@ -4,7 +4,9 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/movies");
+const moviesRouter = require("./routes/movies.controller");
+const mOfMonthRouter = require("./routes/moviesOfTheMonth.controller");
+const usersRouter = require("./routes/user.controller");
 
 const app = express();
 
@@ -15,6 +17,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/movies", moviesRouter);
+app.use("/moviesOfTheMonth", mOfMonthRouter);
 app.use("/users", usersRouter);
 
 module.exports = app;
