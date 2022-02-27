@@ -17,10 +17,10 @@ router.get("/:id/reviews", async (req, res) => {
 router.get("/:id/reviews/add", async (req, res) => {
   const user = await User.findByPk(req.params.id, {
     attributes: ["id", "username"],
-    include: Movie,
+    include: { model: Movie, as: "movies_reviewed" },
   });
   const movie = await Movie.findByPk(1);
-  await user.addMovies(movie, {
+  await user.addMovies_reviewed(movie, {
     through: { movie_id: movie.id, score: 4 },
   });
 
@@ -30,10 +30,12 @@ router.get("/:id/reviews/add", async (req, res) => {
 router.get("/:id/reviews/update", async (req, res) => {
   const user = await User.findByPk(req.params.id, {
     attributes: ["id", "username"],
-    include: Movie,
+    include: { model: Movie, as: "movies_reviewed" },
   });
   const movie = await Movie.findByPk(1);
-  await user.setMovies(movie, {
+  await user.setMovies_reviewed(movie, {
+    model: Movie,
+    as: "movies_reviewed",
     through: { movie_id: movie.id, score: 4 },
   });
 

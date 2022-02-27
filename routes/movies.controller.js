@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
-const { Movie } = db.sequelize.models;
+const { Movie, User } = db.sequelize.models;
 
 router.get("/", async (req, res) => {
-  const movies = await Movie.findAll();
+  const movies = await Movie.findAll({
+    include: { model: User, as: "reviewed_by" },
+  });
   res.json(movies);
 });
 

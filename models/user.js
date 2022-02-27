@@ -13,14 +13,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           name: "admin_id",
         },
-      }),
-        User.belongsToMany(models.Movie, {
-          through: models.Review,
-          // as: "movies_reviewed",
-          foreignKey: {
-            name: "user_id",
-          },
-        });
+      });
+      User.belongsToMany(models.Movie, {
+        as: "movies_reviewed",
+        through: models.Review,
+        foreignKey: {
+          name: "user_id",
+        },
+      });
     }
   }
   User.init(
