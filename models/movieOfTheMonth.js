@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Movie extends Model {
+  class MovieOfTheMonth extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,25 +9,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Movie.hasMany(models.MovieOfTheMonth, {
-        foreignKey: {
-          name: "movie_id",
-        },
-      });
+      MovieOfTheMonth.belongsTo(models.Movie);
+      MovieOfTheMonth.belongsTo(models.User);
     }
   }
-  Movie.init(
+  MovieOfTheMonth.init(
     {
-      title: DataTypes.STRING,
-      description: DataTypes.STRING,
-      duration: DataTypes.INTEGER,
-      genre: DataTypes.STRING,
+      // movie_id: DataTypes.INTEGER,
+      // admin_id: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "Movie",
-      tableName: "movies",
+      modelName: "movieOfTheMonth",
+      tableName: "movies_of_the_month",
     }
   );
-  return Movie;
+  return MovieOfTheMonth;
 };
