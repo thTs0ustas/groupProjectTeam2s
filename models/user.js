@@ -14,6 +14,13 @@ module.exports = (sequelize, DataTypes) => {
           name: "admin_id",
         },
       });
+      User.belongsToMany(models.Movie, {
+        as: "movies_reviewed",
+        through: models.Review,
+        foreignKey: {
+          name: "user_id",
+        },
+      });
     }
   }
   User.init(
