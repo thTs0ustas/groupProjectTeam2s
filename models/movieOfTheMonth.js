@@ -19,6 +19,13 @@ module.exports = (sequelize) => {
           name: "admin_id",
         },
       });
+
+      MovieOfTheMonth.hasMany(models.Screening, {
+        foreignKey: {
+          name: "movies_month_id"
+        }
+      })
+
     }
   }
   MovieOfTheMonth.init(
