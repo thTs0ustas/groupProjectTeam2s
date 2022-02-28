@@ -18,7 +18,7 @@ module.exports = {
       },
       admin_id: {
         type: Sequelize.INTEGER,
-        require: true,
+        // require: true,
         references: {
           model: "users",
           key: "id",

@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   class MovieOfTheMonth extends Model {
     /**
      * Helper method for defining associations.
@@ -19,11 +19,13 @@ module.exports = (sequelize, DataTypes) => {
           name: "admin_id",
         },
       });
+
       MovieOfTheMonth.hasMany(models.Screening, {
         foreignKey: {
           name: "movies_month_id"
         }
       })
+
     }
   }
   MovieOfTheMonth.init(
