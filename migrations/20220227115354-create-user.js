@@ -17,6 +17,10 @@ module.exports = {
         type: Sequelize.STRING,
         require: true,
       },
+      email: {
+        type: Sequelize.STRING,
+        require: true,
+      },
       first_name: {
         type: Sequelize.STRING,
         require: true,
@@ -51,7 +55,7 @@ module.exports = {
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.dropTable("users");
   },
 };
