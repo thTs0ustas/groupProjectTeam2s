@@ -12,22 +12,23 @@ router.get("/:id/reviews", async (req, res) => {
       attributes: ["id", "title"],
     },
   });
+
   res.json(users);
 });
-router.get("/:id/reviews/add", async (req, res) => {
+router.post("/:id/reviews/add", async (req, res) => {
   const user = await User.findByPk(req.params.id, {
     attributes: ["id", "username"],
     include: { model: Movie, as: "movies_reviewed" },
   });
   const movie = await Movie.findByPk(1);
   await user.addMovies_reviewed(movie, {
-    through: { movie_id: movie.id, score: 4 },
+    through: { movie_id: movie.id, score: req.body.score },
   });
 
-  res.json(user);
+  res.redirect(`/users/${req.params.id}/reviews`);
 });
 
-router.get("/:id/reviews/update", async (req, res) => {
+router.put("/:id/reviews/update", async (req, res) => {
   const user = await User.findByPk(req.params.id, {
     attributes: ["id", "username"],
     include: { model: Movie, as: "movies_reviewed" },
@@ -39,7 +40,7 @@ router.get("/:id/reviews/update", async (req, res) => {
     through: { movie_id: movie.id, score: 4 },
   });
 
-  res.json(user);
+  res.redirect(`/users/${req.params.id}/reviews`);
 });
 
 module.exports = router;

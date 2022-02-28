@@ -11,9 +11,15 @@ router.get("/", async (req, res) => {
   });
   res.json(moviesOfTheMonth);
 });
-router.get("/add", async (req, res) => {
-  const newMovieOfTheMonth = await MovieOfTheMonth.create({ movie_id: 1 });
-  res.json(newMovieOfTheMonth);
+router.post("/add", async (req, res) => {
+  const movie = await Movie.findByPk(req.body.movie_id);
+  await movie.createMovieOfTheMonth();
+  const moviesOfTheMonth = await MovieOfTheMonth.findAll({
+    include: {
+      model: Movie,
+    },
+  });
+  res.json(moviesOfTheMonth);
 });
 
 module.exports = router;
