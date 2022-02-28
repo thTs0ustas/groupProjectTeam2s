@@ -6,13 +6,16 @@ const { Reservation, User, Screening } = db.sequelize.models;
 
 // User Reservations for a screening
 router.get("/users/:id", async (req, res) => {
-  const reservation = await Reservation.findOne(
+  const reservation = await User.findOne(
     {
-      where: {
-        [Op.and]: [
-          { user_id: req.params.id },
-          { screening_id: req.query.screening },
-        ],
+      include: {
+        model: Reservation,
+        where: {
+          [Op.and]: [
+            { user_id: req.params.id },
+            { screening_id: req.query.screening },
+          ],
+        },
       },
     },
     { include: User }
@@ -22,9 +25,9 @@ router.get("/users/:id", async (req, res) => {
 
 // All user Reservations
 router.get("/users/:id/all", async (req, res) => {
-  const reservation = await Reservation.findByPk(req.params.id, {
+  const reservation = await User.findByPk(req.params.id, {
     include: {
-      model: User,
+      model: Reservation,
     },
   });
   res.json(reservation);
@@ -39,6 +42,22 @@ router.get("/screenings/:id", async (req, res) => {
     include: [User, Screening],
   });
   res.json(reservation);
+});
+
+// Create a new reservation by a user
+router.post("/users/:id/new", async (req, res) => {
+  // const screening = await Screening.findByPk(req.body.screening_id);
+  const user = await User.findByPk(req.params.id);
+  await user.createReservation({
+    // user_id: req.params.id,
+    screening_id: req.body.screening_id,
+    total_cost: 15,
+    purchase_date: new Date(),
+  });
+  const userWithNewRes = await User.findByPk(req.params.id, {
+    include: Reservation,
+  });
+  res.json(userWithNewRes);
 });
 
 module.exports = router;
