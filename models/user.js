@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
           name: "user_id",
         },
       });
+      User.hasMany(models.Reservation, {
+        foreignKey: { name: "user_id", allowNull: false },
+      });
     }
   }
   User.init(
