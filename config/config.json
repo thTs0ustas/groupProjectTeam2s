@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root2",
-    "password": "Maria1803",
-    "database": "groupProject",
-    "host": "ra1.anystream.eu",
+    "username": "root",
+    "password": "@RedCode2@",
+    "database": "groupproject",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
