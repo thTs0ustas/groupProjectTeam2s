@@ -11,6 +11,7 @@ const reviewRouter = require("./routes/review.controller");
 const mOfMonthRouter = require("./routes/moviesOfTheMonth.controller");
 const screeningsRouter = require("./routes/screenings.controller");
 const reservationRouter = require("./routes/reservation.controller");
+const cinemaController = require("./routes/cinema.controller")
 
 // const whitelist = ['http://localhost:3000','http://localhost:4000/movies/create']
 // const corsOptions = {
@@ -39,5 +40,6 @@ app.use("/users", usersRouter);
 app.use("/users", reviewRouter);
 app.use("/screenings", screeningsRouter);
 app.use("/reservations", reservationRouter);
+app.use("/cinema", cinemaController)
 
 module.exports = app;
