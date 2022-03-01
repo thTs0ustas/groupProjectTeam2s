@@ -5,7 +5,8 @@ const { Movie, User } = db.sequelize.models;
 
 router.get("/", async (req, res) => {
   const movies = await Movie.findAll({
-    include: { model: User, as: "reviewed_by" },
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+    include: { model: User, as: "reviewed_by", attributes: ["id", "username"] },
   });
   res.json(movies);
 });
