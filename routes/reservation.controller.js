@@ -8,8 +8,10 @@ const { Reservation, User, Screening } = db.sequelize.models;
 router.get("/users/:id", async (req, res) => {
   const reservation = await User.findOne(
     {
+      attributes: { exclude: ["createdAt", "updatedAt"] },
       include: {
         model: Reservation,
+        attributes: { exclude: ["createdAt", "updatedAt"] },
         where: {
           [Op.and]: [
             { user_id: req.params.id },
@@ -18,7 +20,7 @@ router.get("/users/:id", async (req, res) => {
         },
       },
     },
-    { include: User }
+    { include: User, attributes: { exclude: ["createdAt", "updatedAt"] } }
   );
   res.json(reservation);
 });
@@ -26,8 +28,10 @@ router.get("/users/:id", async (req, res) => {
 // All user Reservations
 router.get("/users/:id/all", async (req, res) => {
   const reservation = await User.findByPk(req.params.id, {
+    attributes: { exclude: ["createdAt", "updatedAt"] },
     include: {
       model: Reservation,
+      attributes: { exclude: ["createdAt", "updatedAt"] },
     },
   });
   res.json(reservation);
@@ -36,6 +40,7 @@ router.get("/users/:id/all", async (req, res) => {
 // Screening Reservations
 router.get("/screenings/:id", async (req, res) => {
   const reservation = await Reservation.findAll({
+    attributes: { exclude: ["createdAt", "updatedAt"] },
     where: {
       screening_id: req.params.id,
     },
@@ -56,6 +61,7 @@ router.post("/users/:id/new", async (req, res) => {
   });
   const userWithNewRes = await User.findByPk(req.params.id, {
     include: Reservation,
+    attributes: { exclude: ["createdAt", "updatedAt"] },
   });
   res.json(userWithNewRes);
 });
