@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Screening.init(
     {
-      // auditorium_id: DataTypes.INTEGEG
+      
       // movies_month_id: DataTypes.INTEGEG
       movie_starts: DataTypes.DATE,
       movie_ends: DataTypes.DATE,

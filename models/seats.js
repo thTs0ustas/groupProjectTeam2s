@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Seats.hasOne(models.ReservedSeats, {
+        foreignKey: {
+          name: "seats_id"
+        }
+      });
       Seats.belongsTo(models.Auditorium, {
         foreignKey: {
           name: "auditorium_id"

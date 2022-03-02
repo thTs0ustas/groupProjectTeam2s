@@ -11,7 +11,11 @@ const reviewRouter = require("./routes/review.controller");
 const mOfMonthRouter = require("./routes/moviesOfTheMonth.controller");
 const screeningsRouter = require("./routes/screenings.controller");
 const reservationRouter = require("./routes/reservation.controller");
-const cinemaController = require("./routes/cinema.controller")
+const cinemaController = require("./routes/cinema.controller");
+const auditoriumController = require("./routes/auditorium.controller");
+const seatsController = require("./routes/seats.controller")
+const reserveSeatsConstroller = require("./routes/reservedSeats.controller");
+
 
 // const whitelist = ['http://localhost:3000','http://localhost:4000/movies/create']
 // const corsOptions = {
@@ -40,6 +44,10 @@ app.use("/users", usersRouter);
 app.use("/users", reviewRouter);
 app.use("/screenings", screeningsRouter);
 app.use("/reservations", reservationRouter);
-app.use("/cinema", cinemaController)
+app.use("/cinema", cinemaController);
+app.use("/auditorium", auditoriumController);
+app.use("/seats", seatsController);
+app.use("/reservedSeats", reserveSeatsConstroller);
+
 
 module.exports = app;
