@@ -1,37 +1,33 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class ReservedSeats extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class ReservedSeat extends Model {
     static associate(models) {
-      // define association here
-      ReservedSeats.belongsTo(models.Seats, {
+      ReservedSeat.belongsTo(models.Seat, {
         foreignKey: {
-          name: "seats_id"
-        }
+          name: "seats_id",
+        },
       });
-      ReservedSeats.belongsTo(models.Reservation, {
+      ReservedSeat.belongsTo(models.Reservation, {
         foreignKey: {
           name: "reservation_id",
-        }
+          allowNull: false,
+        },
       });
     }
   }
-  ReservedSeats.init({
-    // reservation_id: DataTypes.INTEGEG
-    // seats_id: DataTypes.INTEGEG
-    discount_type: DataTypes.STRING,
-    cost: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'ReservedSeats',
-    tableName: "reservedseats",
-  });
-  return ReservedSeats;
+  ReservedSeat.init(
+    {
+      // reservation_id: DataTypes.INTEGEG
+      // seats_id: DataTypes.INTEGEG
+      discount_type: DataTypes.STRING,
+      cost: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "ReservedSeat",
+      tableName: "reservedseats",
+    }
+  );
+  return ReservedSeat;
 };

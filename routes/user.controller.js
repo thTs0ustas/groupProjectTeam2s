@@ -25,7 +25,6 @@ router.post("/create", async (req, res) => {
   const exists = await User.findOne({
     where: { [Op.or]: [{ username }, { email }] },
   });
-
   if (!exists) {
     try {
       const user = await User.create({

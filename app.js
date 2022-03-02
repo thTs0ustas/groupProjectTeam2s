@@ -13,11 +13,10 @@ const screeningsRouter = require("./routes/screenings.controller");
 const reservationRouter = require("./routes/reservation.controller");
 const cinemaController = require("./routes/cinema.controller");
 const auditoriumController = require("./routes/auditorium.controller");
-const seatsController = require("./routes/seats.controller")
-const reserveSeatsConstroller = require("./routes/reservedSeats.controller");
+const seatsController = require("./routes/seats.controller");
+const reserveSeatsController = require("./routes/reservedSeats.controller");
 
-
-// const whitelist = ['http://localhost:3000','http://localhost:4000/movies/create']
+// const whitelist = ['http://localhost:3000','http://localhost:4000/*']
 // const corsOptions = {
 //   origin: function (origin, callback) {
 //     if (whitelist.indexOf(origin) !== -1) {
@@ -47,7 +46,6 @@ app.use("/reservations", reservationRouter);
 app.use("/cinema", cinemaController);
 app.use("/auditorium", auditoriumController);
 app.use("/seats", seatsController);
-app.use("/reservedSeats", reserveSeatsConstroller);
-
+app.use("/reservedSeats", reserveSeatsController);
 
 module.exports = app;

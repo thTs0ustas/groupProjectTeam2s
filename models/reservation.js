@@ -9,12 +9,12 @@ module.exports = (sequelize, DataTypes) => {
       Reservation.belongsTo(models.Screening, {
         foreignKey: { name: "screening_id", allowNull: false },
       });
-      Reservation.hasMany(models.ReservedSeats, {
+      Reservation.hasMany(models.ReservedSeat, {
         foreignKey: {
           name: "reservation_id",
-          allowNull: false
-        }
-      })
+          allowNull: false,
+        },
+      });
     }
   }
   Reservation.init(
