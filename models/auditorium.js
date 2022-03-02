@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
           name: "auditorium_id",
         },
       });
-      Auditorium.hasMany(models.Seats, {
+      Auditorium.hasMany(models.Seat, {
         foreignKey: {
           name: "auditorium_id",
         },
