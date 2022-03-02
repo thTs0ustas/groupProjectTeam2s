@@ -2,7 +2,7 @@ const express = require("express");
 const { Op } = require("sequelize");
 const router = express.Router();
 const db = require("../models");
-const { Reservation, User, Screening } = db.sequelize.models;
+const { Reservation, User, Screening, ReservedSeats } = db.sequelize.models;
 
 // User Reservations for a screening
 router.get("/users/:id", async (req, res) => {
@@ -65,5 +65,19 @@ router.post("/users/:id/new", async (req, res) => {
   });
   res.json(userWithNewRes);
 });
+
+
+// Display a Full Ticket
+router.get("/ticket/:id/", async (req, res) =>{
+  const ticket = await User.findByPk(req.params.id,{
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+    include: {
+      model: Reservation,
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      include: [ReservedSeats,Screening]
+    },
+  });
+  res.json(ticket)
+})
 
 module.exports = router;
