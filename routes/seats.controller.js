@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const db = require("../models");
-const { Seats, Auditorium } = db.sequelize.models;
+const { Seat, Auditorium } = db.sequelize.models;
 
 router.get("/", async (req, res) => {
-  const reservedSeats = await Seats.findAll({
+  const reservedSeats = await Seat.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
     include: {
       model: Auditorium,
@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 router.post("/add/:aud_id", async (req, res) => {
   const auditorium_id = req.params.aud_id;
   const { row_letter, seat_num } = req.body;
-  const newSeats = await Seats.create({
+  const newSeats = await Seat.create({
     row_letter,
     seat_num,
     auditorium_id,

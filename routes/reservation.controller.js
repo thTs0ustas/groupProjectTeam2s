@@ -2,7 +2,7 @@ const express = require("express");
 const { Op } = require("sequelize");
 const router = express.Router();
 const db = require("../models");
-const { Reservation, User, Screening, ReservedSeats } = db.sequelize.models;
+const { Reservation, User, Screening, ReservedSeat } = db.sequelize.models;
 
 // User Reservations for a screening
 router.get("/users/:id", async (req, res) => {
@@ -60,24 +60,35 @@ router.post("/users/:id/new", async (req, res) => {
     purchase_date: new Date(),
   });
   const userWithNewRes = await User.findByPk(req.params.id, {
-    include: Reservation,
+    include: [Reservation, ReservedSeat],
     attributes: { exclude: ["createdAt", "updatedAt"] },
   });
   res.json(userWithNewRes);
 });
 
-
 // Display a Full Ticket
-router.get("/ticket/:id/", async (req, res) =>{
-  const ticket = await User.findByPk(req.params.id,{
+router.get("/users/:id/ticket", async (req, res) => {
+  console.log(req.params.id);
+  const ticket = await User.findByPk(req.params.id, {
     attributes: { exclude: ["createdAt", "updatedAt"] },
-    include: {
-      model: Reservation,
-      attributes: { exclude: ["createdAt", "updatedAt"] },
-      include: [ReservedSeats,Screening]
-    },
+    include: [
+      {
+        model: Reservation,
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+        include: [
+          {
+            model: ReservedSeat,
+            attributes: { exclude: ["createdAt", "updatedAt"] },
+          },
+          {
+            model: Screening,
+            attributes: { exclude: ["createdAt", "updatedAt"] },
+          },
+        ],
+      },
+    ],
   });
-  res.json(ticket)
-})
+  res.json(ticket);
+});
 
 module.exports = router;
