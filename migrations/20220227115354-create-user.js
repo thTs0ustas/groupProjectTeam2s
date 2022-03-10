@@ -45,6 +45,9 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         default: 0,
       },
+      access_token: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

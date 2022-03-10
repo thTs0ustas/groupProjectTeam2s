@@ -1,11 +1,13 @@
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const express = require("express");
 const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
 const db = require("../models");
 const { User } = db.sequelize.models;
 const passport = require("passport");
-
 const router = express.Router();
+
 const initializePassport = require("../passportConfig");
 
 initializePassport(
@@ -61,30 +63,57 @@ router.get("/", async (req, res) => {
   res.json(user);
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { username, password } = req.body;
+  const user = await User.findOne({ where: { username }, raw: true });
+  if (user == null) {
+    return res.json({ message: "No user with that username" });
+  }
+  if (await bcrypt.compare(password, user.password)) {
+    try {
+      const accessToken = jwt.sign(
+        { username: user.username },
+        process.env.SECRET
+      );
+      console.log("Token", accessToken);
+      await User.update(
+        { access_token: accessToken },
+        { where: { username: user.username } }
+      );
 
-  User.findOne({ where: { username }, raw: true })
-    .then(async (user) => {
-      if (user == null) {
-        return res.json({ message: "No user with that username" });
-      }
+      console.log("Token", user);
+      return res.json({
+        accessToken,
+      });
+    } catch (e) {
+      res.json({ error: e });
+    }
+  } else {
+    return res.json({ message: "Password incorrect" });
+  }
 
-      if (await bcrypt.compare(password, user.password)) {
-        // console.log("Nice");
-        // return done(null, user);
-        const accessToken = jwt.sign(
-          { username: user.username, role: user.role },
-          accessTokenSecret
-        );
-        return res.json({
-          accessToken,
-        });
-      } else {
-        return res.json({ message: "Password incorrect" });
-      }
-    })
-    .catch(() => res.json({ error: "User doesn't exists" }));
+  // .then(async (user) => {
+  //   if (user == null) {
+  //     return res.json({ message: "No user with that username" });
+  //   }
+
+  //   if (await bcrypt.compare(password, user.password)) {
+  //     const accessToken = jwt.sign(
+  //       { username: user.username },
+  //       process.env.SECRET
+  //     );
+  //     console.log("Token", accessToken);
+  //     user.set({ access_token: accessToken });
+  //     await user.save();
+  //     console.log("Token", user);
+  //     return res.json({
+  //       accessToken,
+  //     });
+  //   } else {
+  //     return res.json({ message: "Password incorrect" });
+  //   }
+  // })
+  // .catch((e) => res.json({ error: e }));
 });
 
 router.get("/error", (req, res) =>
