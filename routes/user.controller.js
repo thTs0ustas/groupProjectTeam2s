@@ -61,25 +61,31 @@ router.get("/", async (req, res) => {
   res.json(user);
 });
 
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    failureRedirect: "/users/error",
-  }),
-  async (req, res) => {
-    console.log(req);
-    const { username } = req.body;
+router.post("/login", (req, res) => {
+  const { username, password } = req.body;
 
-    const user = await User.findOne({
-      where: { username: username },
-    });
+  User.findOne({ where: { username }, raw: true })
+    .then(async (user) => {
+      if (user == null) {
+        return res.json({ message: "No user with that username" });
+      }
 
-    if (user) {
-      return res.json(user);
-    }
-    res.json({ error: "User doesn't exists" });
-  }
-);
+      if (await bcrypt.compare(password, user.password)) {
+        // console.log("Nice");
+        // return done(null, user);
+        const accessToken = jwt.sign(
+          { username: user.username, role: user.role },
+          accessTokenSecret
+        );
+        return res.json({
+          accessToken,
+        });
+      } else {
+        return res.json({ message: "Password incorrect" });
+      }
+    })
+    .catch(() => res.json({ error: "User doesn't exists" }));
+});
 
 router.get("/error", (req, res) =>
   res.json({ error: "Username or Password is incorrect" })
