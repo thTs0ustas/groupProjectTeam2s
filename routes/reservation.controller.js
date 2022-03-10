@@ -51,12 +51,10 @@ router.get("/screenings/:id", async (req, res) => {
 
 // Create a new reservation by a user
 router.post("/users/:id/new", async (req, res) => {
-  // const screening = await Screening.findByPk(req.body.screening_id);
   const user = await User.findByPk(req.params.id);
   await user.createReservation({
-    // user_id: req.params.id,
     screening_id: req.body.screening_id,
-    total_cost: 15,
+    total_cost: 0,
     purchase_date: new Date(),
   });
   const userWithNewRes = await User.findByPk(req.params.id, {
@@ -67,13 +65,13 @@ router.post("/users/:id/new", async (req, res) => {
 });
 
 // Display a Full Ticket
-router.get("/users/:id/ticket", async (req, res) => {
-  console.log(req.params.id);
+router.get("/users/:id/ticket/:ticketId", async (req, res) => {
   const ticket = await User.findByPk(req.params.id, {
     attributes: { exclude: ["createdAt", "updatedAt"] },
     include: [
       {
         model: Reservation,
+        where: { id: req.params.ticketId },
         attributes: { exclude: ["createdAt", "updatedAt"] },
         include: [
           {

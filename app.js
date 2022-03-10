@@ -18,17 +18,6 @@ const reserveSeatsController = require("./routes/reservedSeats.controller");
 const session = require("express-session");
 const passport = require("passport");
 
-// const whitelist = ['http://localhost:3000','http://localhost:4000/*']
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
-// }
-
 const app = express();
 
 app.use(logger("dev"));
@@ -40,7 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   session({
-    secret: true,
+    secret: "true",
     resave: false,
     saveUninitialized: false,
   })

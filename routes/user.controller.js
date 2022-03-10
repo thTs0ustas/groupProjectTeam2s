@@ -2,11 +2,11 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
 const db = require("../models");
+const { User } = db.sequelize.models;
 const passport = require("passport");
 
 const router = express.Router();
 const initializePassport = require("../passportConfig");
-const { User } = db.sequelize.models;
 
 initializePassport(
   passport,
@@ -64,21 +64,25 @@ router.get("/", async (req, res) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: `/`,
-    failureRedirect: "/",
-  })
-  // async (req, res) => {
-  //   const { username, password } = req.body;
-  //
-  //   const user = await User.findOne({
-  //     where: { [Op.and]: [{ username: username }, { password: password }] },
-  //   });
-  //
-  //   if (user) {
-  //     return res.json(user);
-  //   }
-  //   res.json({ error: "User doesn't exists" });
-  // }
+    failureRedirect: "/users/error",
+  }),
+  async (req, res) => {
+    console.log(req);
+    const { username } = req.body;
+
+    const user = await User.findOne({
+      where: { username: username },
+    });
+
+    if (user) {
+      return res.json(user);
+    }
+    res.json({ error: "User doesn't exists" });
+  }
+);
+
+router.get("/error", (req, res) =>
+  res.json({ error: "Username or Password is incorrect" })
 );
 
 router.post("/logout", (req, res) => {

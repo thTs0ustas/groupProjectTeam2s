@@ -1,7 +1,42 @@
 {
   "development": {
+    "username": "root2",
+    "password": "Maria1803",
+    "database": "groupproject",
+    "host": "",
+    "dialect": "mysql"
+  },
+  "development_th": {
     "username": "root",
     "password": "@RedCode2@",
+    "database": "groupproject",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "development_kd": {
+    "username": "root",
+    "password": "",
+    "database": "groupproject",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "development_gc": {
+    "username": "root",
+    "password": "",
+    "database": "groupproject",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "development_fd": {
+    "username": "root",
+    "password": "",
+    "database": "groupproject",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "development_sk": {
+    "username": "root",
+    "password": "",
     "database": "groupproject",
     "host": "localhost",
     "dialect": "mysql"
