@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
+
 const { User, Movie } = db.sequelize.models;
 
 router.get("/:id/reviews", async (req, res) => {

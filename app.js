@@ -16,8 +16,6 @@ const cinemaController = require("./routes/cinema.controller");
 const auditoriumController = require("./routes/auditorium.controller");
 const seatsController = require("./routes/seats.controller");
 const reserveSeatsController = require("./routes/reservedSeats.controller");
-// const session = require("express-session");
-// const passport = require("passport");
 
 const app = express();
 
@@ -29,16 +27,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
-
-// app.use(
-//   session({
-//     secret: "true",
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/movies", moviesRouter);

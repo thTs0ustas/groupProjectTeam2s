@@ -1,20 +1,14 @@
-require("dotenv").config();
-const jwt = require("jsonwebtoken");
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { authenticateJWT } = require("../auth/authenticated");
+
 const { Op } = require("sequelize");
 const db = require("../models");
 const { User } = db.sequelize.models;
-const passport = require("passport");
+
 const router = express.Router();
-
-const initializePassport = require("../passportConfig");
-
-initializePassport(
-  passport,
-  (email) => User.findOne({ where: { email } }),
-  (id) => User.findOne({ where: { id } })
-);
+require("dotenv").config();
 
 router.get("/", async (req, res) => {
   const users = await User.findAll();
@@ -58,7 +52,7 @@ router.post("/create", async (req, res) => {
   res.json({ error: "User already exists" });
 });
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   res.json(user);
 });
@@ -72,56 +66,32 @@ router.post("/login", async (req, res) => {
   if (await bcrypt.compare(password, user.password)) {
     try {
       const accessToken = jwt.sign(
-        { username: user.username },
-        process.env.SECRET
+        { username: user.username, isAdmin: user.isAdmin },
+        process.env.ACCESS_TOKEN_SECRET
       );
-      console.log("Token", accessToken);
+
       await User.update(
         { access_token: accessToken },
         { where: { username: user.username } }
       );
 
-      console.log("Token", user);
       return res.json({
-        accessToken,
+        Message: "Access Token created!! " + accessToken,
       });
     } catch (e) {
-      res.json({ error: e });
+      res.json({ error: "An error occurred" + e });
     }
   } else {
-    return res.json({ message: "Password incorrect" });
+    return res.json({ message: "Username or password incorrect" });
   }
-
-  // .then(async (user) => {
-  //   if (user == null) {
-  //     return res.json({ message: "No user with that username" });
-  //   }
-
-  //   if (await bcrypt.compare(password, user.password)) {
-  //     const accessToken = jwt.sign(
-  //       { username: user.username },
-  //       process.env.SECRET
-  //     );
-  //     console.log("Token", accessToken);
-  //     user.set({ access_token: accessToken });
-  //     await user.save();
-  //     console.log("Token", user);
-  //     return res.json({
-  //       accessToken,
-  //     });
-  //   } else {
-  //     return res.json({ message: "Password incorrect" });
-  //   }
-  // })
-  // .catch((e) => res.json({ error: e }));
 });
 
 router.get("/error", (req, res) =>
   res.json({ error: "Username or Password is incorrect" })
 );
 
-router.post("/logout", (req, res) => {
-  req.logOut();
+router.post("/:id/logout", authenticateJWT, async (req, res) => {
+  await User.update({ access_token: "" }, { where: { id: req.params.id } });
   res.redirect("/");
 });
 
