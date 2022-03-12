@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const { Movie, User } = db.sequelize.models;
-const { authenticateJWT } = require("../auth/authenticated");
+// const { authenticateJWT } = require("../auth/authenticated");
 
-router.get("/", authenticateJWT, async (req, res) => {
+router.get("/", async (req, res) => {
   const movies = await Movie.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
     include: { model: User, as: "reviewed_by", attributes: ["id", "username"] },

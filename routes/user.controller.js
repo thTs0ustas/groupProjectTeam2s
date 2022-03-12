@@ -61,9 +61,11 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   const user = await User.findOne({ where: { username }, raw: true });
+
   if (user === null) {
     return res.json({ message: "No user with that username" });
   }
+
   if (await bcrypt.compare(password, user.password)) {
     try {
       const accessToken = jwt.sign(
@@ -75,6 +77,7 @@ router.post("/login", async (req, res) => {
         { access_token: accessToken },
         { where: { username: user.username } }
       );
+
       return res.json({
         username: user.username,
         accessToken,
