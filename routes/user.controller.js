@@ -52,15 +52,16 @@ router.post("/create", async (req, res) => {
   res.json({ error: "User already exists" });
 });
 
-router.get("/:id", async (req, res) => {
-  const user = await User.findByPk(req.params.id);
+router.get("/:username", async (req, res) => {
+  const user = await User.findOne({ where: { username: req.params.username } });
   res.json(user);
 });
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
+
   const user = await User.findOne({ where: { username }, raw: true });
-  if (user == null) {
+  if (user === null) {
     return res.json({ message: "No user with that username" });
   }
   if (await bcrypt.compare(password, user.password)) {
@@ -74,9 +75,9 @@ router.post("/login", async (req, res) => {
         { access_token: accessToken },
         { where: { username: user.username } }
       );
-
       return res.json({
-        Message: "Access Token created!! " + accessToken,
+        username: user.username,
+        accessToken,
       });
     } catch (e) {
       res.json({ error: "An error occurred" + e });
