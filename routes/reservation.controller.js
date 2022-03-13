@@ -50,28 +50,47 @@ router.get("/screenings/:id", async (req, res) => {
 });
 
 // Create a new reservation by a user
-router.post("/users/:id/new", async (req, res) => {
-  const user = await User.findByPk(req.params.id);
-  await user.createReservation({
-    screening_id: req.body.screening_id,
-    total_cost: 0,
+router.post("/users/:username/new", async (req, res) => {
+  const user = await User.findOne({ where: { username: req.params.username } });
+  console.log(req.body);
+  // const price = req.body.price
+  const reservation = await user.createReservation({
+    screening_id: req.body.data.screening_id,
+    total_cost: 15, //price,
+
     purchase_date: new Date(),
   });
-  const userWithNewRes = await User.findByPk(req.params.id, {
-    include: [Reservation, ReservedSeat],
+  console.log(req.body.data.seats);
+
+  req.body.data.seats.forEach((seat) =>
+    reservation.createReservedSeat({
+      reservation_id: reservation.id,
+      cost: seat.cost,
+      discount_type: seat.discount_type,
+      seats_id: seat.id,
+    })
+  );
+  // let reserv = await user.getReservations();
+
+  // await reserv.createReservationSeats({ reservation_id: });
+
+  const userWithNewRes = await User.findOne({
+    where: { username: req.params.username },
+    include: [Reservation],
     attributes: { exclude: ["createdAt", "updatedAt"] },
   });
   res.json(userWithNewRes);
 });
 
 // Display a Full Ticket
-router.get("/users/:id/ticket/:ticketId", async (req, res) => {
-  const ticket = await User.findByPk(req.params.id, {
+router.get("/users/:username/ticket/:reservationId", async (req, res) => {
+  const ticket = await User.findOne({
+    where: { username: req.params.username },
     attributes: { exclude: ["createdAt", "updatedAt"] },
     include: [
       {
         model: Reservation,
-        where: { id: req.params.ticketId },
+        where: { id: req.params.reservationId },
         attributes: { exclude: ["createdAt", "updatedAt"] },
         include: [
           {

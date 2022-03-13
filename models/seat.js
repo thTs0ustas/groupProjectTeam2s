@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       row_letter: DataTypes.STRING,
       seat_num: DataTypes.INTEGER,
+      cost: DataTypes.INTEGER,
     },
     {
       sequelize,
