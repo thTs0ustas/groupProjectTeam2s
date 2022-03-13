@@ -1,18 +1,14 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { authenticateJWT } = require("../auth/authenticated");
+
 const { Op } = require("sequelize");
 const db = require("../models");
 const { User } = db.sequelize.models;
-const passport = require("passport");
 
 const router = express.Router();
-const initializePassport = require("../passportConfig");
-
-initializePassport(
-  passport,
-  (email) => User.findOne({ where: { email } }),
-  (id) => User.findOne({ where: { id } })
-);
+require("dotenv").config();
 
 router.get("/", async (req, res) => {
   const users = await User.findAll();
@@ -56,37 +52,50 @@ router.post("/create", async (req, res) => {
   res.json({ error: "User already exists" });
 });
 
-router.get("/", async (req, res) => {
-  const user = await User.findByPk(req.params.id);
+router.get("/:username", async (req, res) => {
+  const user = await User.findOne({ where: { username: req.params.username } });
   res.json(user);
 });
 
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    failureRedirect: "/users/error",
-  }),
-  async (req, res) => {
-    console.log(req);
-    const { username } = req.body;
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
 
-    const user = await User.findOne({
-      where: { username: username },
-    });
+  const user = await User.findOne({ where: { username }, raw: true });
 
-    if (user) {
-      return res.json(user);
-    }
-    res.json({ error: "User doesn't exists" });
+  if (user === null) {
+    return res.json({ message: "No user with that username" });
   }
-);
+
+  if (await bcrypt.compare(password, user.password)) {
+    try {
+      const accessToken = jwt.sign(
+        { username: user.username, isAdmin: user.isAdmin },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+
+      await User.update(
+        { access_token: accessToken },
+        { where: { username: user.username } }
+      );
+
+      return res.json({
+        username: user.username,
+        accessToken,
+      });
+    } catch (e) {
+      res.json({ error: "An error occurred" + e });
+    }
+  } else {
+    return res.json({ message: "Username or password incorrect" });
+  }
+});
 
 router.get("/error", (req, res) =>
   res.json({ error: "Username or Password is incorrect" })
 );
 
-router.post("/logout", (req, res) => {
-  req.logOut();
+router.post("/:id/logout", authenticateJWT, async (req, res) => {
+  await User.update({ access_token: "" }, { where: { id: req.params.id } });
   res.redirect("/");
 });
 
