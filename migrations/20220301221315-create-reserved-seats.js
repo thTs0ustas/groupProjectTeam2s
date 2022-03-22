@@ -16,6 +16,14 @@ module.exports = {
           key: "id",
         },
       },
+      screening_id: {
+        type: Sequelize.INTEGER,
+        require: true,
+        references: {
+          model: "Screenings",
+          key: "id",
+        },
+      },
       seats_id: {
         type: Sequelize.INTEGER,
         require: true,

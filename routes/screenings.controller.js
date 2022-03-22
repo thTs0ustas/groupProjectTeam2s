@@ -16,7 +16,7 @@ router.get("/", async function (req, res) {
       },
       {
         model: Auditorium,
-        attributes: ["id", "hall_num", "total_seats", "free_seats"],
+        attributes: ["id", "hall_num", "total_seats", "columns"],
       },
     ],
     attributes: [
@@ -28,7 +28,6 @@ router.get("/", async function (req, res) {
       "movies_month_id",
     ],
   });
-  console.log(screenings);
   res.json(screenings);
 });
 

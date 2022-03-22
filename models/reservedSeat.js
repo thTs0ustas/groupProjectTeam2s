@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
           name: "seats_id",
         },
       });
+      ReservedSeat.belongsTo(models.Screening, {
+        foreignKey: {
+          name: "screening_id",
+        },
+      });
       ReservedSeat.belongsTo(models.Reservation, {
         foreignKey: {
           name: "reservation_id",

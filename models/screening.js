@@ -3,6 +3,11 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Screening extends Model {
     static associate(models) {
+      Screening.hasMany(models.ReservedSeat, {
+        foreignKey: {
+          name: "screening_id",
+        },
+      });
       Screening.belongsTo(models.Auditorium, {
         foreignKey: {
           name: "auditorium_id",
@@ -20,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Screening.init(
     {
-      
       // movies_month_id: DataTypes.INTEGEG
       movie_starts: DataTypes.DATE,
       movie_ends: DataTypes.DATE,
