@@ -3,8 +3,9 @@ const router = express.Router();
 const db = require("../models");
 const { ReservedSeat, Reservation, Seat } = db.sequelize.models;
 
-router.get("/", async (req, res) => {
+router.get("/:screening_id", async (req, res) => {
   const reservedSeats = await ReservedSeat.findAll({
+    where: { screening_id: req.params.screening_id },
     attributes: { exclude: ["createdAt", "updatedAt"] },
     include: [{ model: Reservation, attributes: ["id"] }, { model: Seat }],
   });
@@ -18,6 +19,7 @@ router.post("/add", async (req, res) => {
     reservation_id,
     seats_id,
     discount_type,
+
     cost,
   });
   res.json(newReservedSeats);

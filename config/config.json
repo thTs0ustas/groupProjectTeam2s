@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
+    "username": "thts",
     "password": "@RedCode2@",
     "database": "groupproject",
-    "host": "",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "development_th": {

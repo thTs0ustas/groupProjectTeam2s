@@ -56,7 +56,7 @@ router.post("/users/:username/new", async (req, res) => {
   // const price = req.body.price
   const reservation = await user.createReservation({
     screening_id: req.body.data.screening_id,
-    total_cost: 15, //price,
+    total_cost: req.body.data.price,
 
     purchase_date: new Date(),
   });
@@ -68,6 +68,7 @@ router.post("/users/:username/new", async (req, res) => {
       cost: seat.cost,
       discount_type: seat.discount_type,
       seats_id: seat.id,
+      screening_id: seat.screening_id,
     })
   );
   // let reserv = await user.getReservations();
@@ -96,10 +97,12 @@ router.get("/users/:username/ticket/:reservationId", async (req, res) => {
           {
             model: ReservedSeat,
             attributes: { exclude: ["createdAt", "updatedAt"] },
-          },
-          {
-            model: Screening,
-            attributes: { exclude: ["createdAt", "updatedAt"] },
+            include: [
+              {
+                model: Screening,
+                attributes: { exclude: ["createdAt", "updatedAt"] },
+              },
+            ],
           },
         ],
       },

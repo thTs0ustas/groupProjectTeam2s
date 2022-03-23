@@ -70,7 +70,8 @@ router.post("/login", async (req, res) => {
     try {
       const accessToken = jwt.sign(
         { username: user.username, isAdmin: user.isAdmin },
-        "secret"// process.env.ACCESS_TOKEN_SECRET
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: 60 * 60 }
       );
 
       await User.update(
