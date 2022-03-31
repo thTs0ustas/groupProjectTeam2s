@@ -16,6 +16,7 @@ const cinemaController = require("./routes/cinema.controller");
 const auditoriumController = require("./routes/auditorium.controller");
 const seatsController = require("./routes/seats.controller");
 const reserveSeatsController = require("./routes/reservedSeats.controller");
+const paymentsController = require("./routes/stripe.controller");
 
 const app = express();
 
@@ -39,5 +40,7 @@ app.use("/cinema", cinemaController);
 app.use("/auditorium", auditoriumController);
 app.use("/seats", seatsController);
 app.use("/reservedSeats", reserveSeatsController);
+app.use("/reservedSeats", reserveSeatsController);
+app.use("/payments", paymentsController);
 
 module.exports = app;
