@@ -71,9 +71,6 @@ router.post("/users/:username/new", async (req, res) => {
       screening_id: seat.screening_id,
     })
   );
-  // let reserv = await user.getReservations();
-
-  // await reserv.createReservationSeats({ reservation_id: });
 
   const userWithNewRes = await User.findOne({
     where: { username: req.params.username },
