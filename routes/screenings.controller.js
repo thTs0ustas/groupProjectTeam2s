@@ -1,24 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
-const { Screening, MovieOfTheMonth, Auditorium, Movie } = db.sequelize.models;
+const { Screening /* MovieOfTheMonth, Auditorium, Movie */ } =
+  db.sequelize.models;
 
 router.get("/", async function (req, res) {
   let screenings = await Screening.findAll({
-    include: [
-      {
-        model: MovieOfTheMonth,
-        attributes: ["id", "movie_id", "admin_id"],
-        include: {
-          model: Movie,
-          attributes: ["id", "title", "duration", "genre"],
-        },
-      },
-      {
-        model: Auditorium,
-        attributes: ["id", "hall_num", "total_seats", "columns"],
-      },
-    ],
+    // include: [
+    //   {
+    //     model: MovieOfTheMonth,
+    //     attributes: ["id", "movie_id", "admin_id"],
+    //     include: {
+    //       model: Movie,
+    //       attributes: ["id", "title", "duration", "genre"],
+    //     },
+    //   },
+    //   {
+    //     model: Auditorium,
+    //     attributes: ["id", "hall_num", "total_seats", "columns"],
+    //   },
+    // ],
     attributes: [
       "id",
       "movie_starts",

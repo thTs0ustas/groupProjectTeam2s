@@ -1,13 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
-const { ReservedSeat, Reservation, Seat } = db.sequelize.models;
+const { ReservedSeat, Reservation /* Seat */ } = db.sequelize.models;
 
 router.get("/:screening_id", async (req, res) => {
   const reservedSeats = await ReservedSeat.findAll({
     where: { screening_id: req.params.screening_id },
     attributes: { exclude: ["createdAt", "updatedAt"] },
-    include: [{ model: Reservation, attributes: ["id"] }, { model: Seat }],
+    include: [
+      { model: Reservation, attributes: ["id"] },
+      // { model: Seat, attributes: ["id"] },
+    ],
   });
   res.json(reservedSeats);
 });

@@ -8,6 +8,8 @@ const authenticateJWT = (req, res, next) => {
   //
   //  Take header authorization from request
   //
+  console.log(req.body);
+
   const authHeader = req.headers.authorization;
 
   //
@@ -37,7 +39,7 @@ const authenticateJWT = (req, res, next) => {
       //
       const validUser = await User.findOne({
         where: {
-          [Op.and]: [{ username: req.query.username }, { access_token: token }],
+          [Op.and]: [{ username: req.body.username }, { access_token: token }],
         },
       });
       //

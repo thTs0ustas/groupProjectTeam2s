@@ -1,10 +1,11 @@
 require("dotenv").config();
 
 const express = require("express");
+const { authenticateJWT } = require("../auth/authenticated");
 const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
-router.post("/create-checkout", async (req, res) => {
+router.post("/create-checkout", authenticateJWT, async (req, res) => {
   console.log(req.body);
   try {
     const session = await stripe.checkout.sessions.create({
