@@ -1,15 +1,15 @@
 {
   "development": {
-    "username": "thts",
-    "password": "@RedCode2@",
-    "database": "groupproject",
+    "username": "root",
+    "password": "",
+    "database": "",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "development_th": {
     "username": "root",
     "password": "@RedCode2@",
-    "database": "groupproject",
+    "database": "groupcinema",
     "host": "localhost",
     "dialect": "mysql"
   },
@@ -23,7 +23,7 @@
   "development_gc": {
     "username": "root",
     "password": "",
-    "database": "groupproject",
+    "database": "groupcinema",
     "host": "localhost",
     "dialect": "mysql"
   },

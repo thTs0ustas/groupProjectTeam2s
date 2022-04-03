@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   const { title, description, duration, genre } = req.body;
 
-  const newMovies = await Movie.create({ title, description, duration, genre });
+  const newMovies = await Movie.create({ title, description, duration, genre, image});
   res.json(newMovies);
 });
 module.exports = router;

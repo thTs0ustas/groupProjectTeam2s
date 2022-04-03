@@ -11,8 +11,11 @@ router.get("/", async (req, res) => {
       attributes: { exclude: ["createdAt", "updatedAt"] },
     },
   });
+  console.log(moviesOfTheMonth)
   res.json(moviesOfTheMonth);
 });
+
+
 router.post("/add", async (req, res) => {
   const movie = await Movie.findByPk(req.body.movie_id);
   await movie.createMovieOfTheMonth();
@@ -22,7 +25,7 @@ router.post("/add", async (req, res) => {
       model: Movie,
       attributes: { exclude: ["createdAt", "updatedAt"] },
     },
-  });
+  }); 
   res.json(moviesOfTheMonth);
 });
 
