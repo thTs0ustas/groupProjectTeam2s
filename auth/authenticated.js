@@ -8,8 +8,6 @@ const authenticateJWT = (req, res, next) => {
   //
   //  Take header authorization from request
   //
-  console.log(req.body);
-
   const authHeader = req.headers.authorization;
 
   //

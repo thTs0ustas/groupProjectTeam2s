@@ -19,14 +19,13 @@ const reserveSeatsController = require("./routes/reservedSeats.controller");
 const paymentsController = require("./routes/stripe.controller");
 
 const app = express();
-
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
@@ -34,13 +33,13 @@ app.use("/movies", moviesRouter);
 app.use("/moviesOfTheMonth", mOfMonthRouter);
 app.use("/users", usersRouter);
 app.use("/users", reviewRouter);
-app.use("/screenings", screeningsRouter);
+app.use("/screening", screeningsRouter);
 app.use("/reservations", reservationRouter);
 app.use("/cinema", cinemaController);
 app.use("/auditorium", auditoriumController);
-app.use("/seats", seatsController);
-app.use("/reservedSeats", reserveSeatsController);
-app.use("/reservedSeats", reserveSeatsController);
+app.use("/seat", seatsController);
+app.use("/reservedSeat", reserveSeatsController);
+app.use("/reservedSeat", reserveSeatsController);
 app.use("/payments", paymentsController);
 
 module.exports = app;
