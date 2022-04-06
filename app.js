@@ -39,7 +39,6 @@ app.use("/cinema", cinemaController);
 app.use("/auditorium", auditoriumController);
 app.use("/seat", seatsController);
 app.use("/reservedSeat", reserveSeatsController);
-app.use("/reservedSeat", reserveSeatsController);
 app.use("/payments", paymentsController);
 
 module.exports = app;

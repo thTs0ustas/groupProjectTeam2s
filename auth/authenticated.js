@@ -40,6 +40,7 @@ const authenticateJWT = (req, res, next) => {
           [Op.and]: [{ username: req.body.username }, { access_token: token }],
         },
       });
+
       //
       //  Varify the existance of the user
       //
