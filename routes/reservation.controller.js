@@ -52,7 +52,7 @@ router.get("/screenings/:id", async (req, res) => {
 // Create a new reservation by a user
 router.post("/users/:username/new", async (req, res) => {
   const user = await User.findOne({ where: { username: req.params.username } });
-  console.log(req.body);
+
   // const price = req.body.price
   const reservation = await user.createReservation({
     screening_id: req.body.data.screening_id,
@@ -60,7 +60,6 @@ router.post("/users/:username/new", async (req, res) => {
 
     purchase_date: new Date(),
   });
-  console.log(req.body.data.seats);
 
   req.body.data.seats.forEach((seat) =>
     reservation.createReservedSeat({
