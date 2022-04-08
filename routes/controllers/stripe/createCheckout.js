@@ -1,27 +1,23 @@
 require("dotenv").config();
-
-const express = require("express");
-const { authenticateJWT } = require("../auth/authenticated");
-const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
-router.post("/create-checkout", authenticateJWT, async (req, res) => {
+const createChechout = async (req, res) => {
+  console.log(req);
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      line_items: [
-        {
-          price_data: {
-            currency: "eur",
-            product_data: {
-              name: req.body.name,
-            },
-            unit_amount: +req.body.price,
+      line_items: req.body.data.map((item) => ({
+        quantity: item.quantity,
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: item.name,
           },
-          quantity: +req.body.quantity,
+          unit_amount: item.price,
         },
-      ],
+      })),
+
       success_url: "http://localhost:3000/payments",
       cancel_url: "http://localhost:3000/payments/payment_cancel",
     });
@@ -30,5 +26,6 @@ router.post("/create-checkout", authenticateJWT, async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
-module.exports = router;
+};
+
+module.exports = { createChechout };
