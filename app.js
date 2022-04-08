@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/user.controller");
+const usersRouter = require("./routes/user.route");
 const moviesRouter = require("./routes/movies.controller");
 const reviewRouter = require("./routes/review.controller");
 const mOfMonthRouter = require("./routes/moviesOfTheMonth.controller");
