@@ -24,8 +24,8 @@ const login = async (req, res) => {
     try {
       const accessToken = jwt.sign(
         { username: user.username, isAdmin: user.isAdmin },
-        process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: 60 * 60 }
+        process.env.ACCESS_TOKEN_SECRET
+        // { expiresIn: 60 * 60 }
       );
 
       await User.update(

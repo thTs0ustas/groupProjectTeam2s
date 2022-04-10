@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const { authenticateJWT } = require("../auth/authenticated");
 
@@ -9,7 +10,6 @@ const { fetchUsers } = require("./controllers/user/fetchUsers");
 const { fetchAUser } = require("./controllers/user/fetchAUser");
 
 const router = express.Router();
-require("dotenv").config();
 
 router.get("/", fetchUsers);
 router.post("/create", newUser);
