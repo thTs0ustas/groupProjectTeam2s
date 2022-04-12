@@ -14,6 +14,7 @@ const authenticateJWT = (req, res, next) => {
   //  if header authorization exist
   // take the token string from it
   //
+
   let token;
   if (authHeader) {
     token = authHeader.split(" ")[1];

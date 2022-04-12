@@ -1,6 +1,7 @@
-const db = require("../models");
+const db = require("../../../models");
 const { Seat } = db.sequelize.models;
-const getSeat = async (req, res) => {
+
+const addSeat = async (req, res) => {
   const auditorium_id = req.params.aud_id;
 
   const newSeats = req.body.length
@@ -22,4 +23,4 @@ const getSeat = async (req, res) => {
   res.json(newSeats);
 };
 
-module.exports = { getSeat };
+module.exports = { addSeat };

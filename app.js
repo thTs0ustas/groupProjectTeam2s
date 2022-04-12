@@ -14,7 +14,7 @@ const screeningsRouter = require("./routes/screenings.controller");
 const reservationRouter = require("./routes/reservation.controller");
 const cinemaController = require("./routes/cinema.controller");
 const auditoriumController = require("./routes/auditorium.controller");
-const seatsController = require("./routes/seats.controller");
+const seatsController = require("./routes/seats.route");
 const reserveSeatsController = require("./routes/reservedSeats.controller");
 const paymentsController = require("./routes/stripe.route");
 
