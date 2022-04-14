@@ -26,6 +26,7 @@ router.get("/:movieTitle", async (req, res) => {
         where: { movie_id: movie.id },
       })
   );
+})
 
 router.get("/:id", async (req, res) => {
 
