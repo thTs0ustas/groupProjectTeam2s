@@ -1,8 +1,7 @@
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
-const createChechout = async (req, res) => {
-  console.log(req);
+const createCheckout = async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -28,4 +27,4 @@ const createChechout = async (req, res) => {
   }
 };
 
-module.exports = { createChechout };
+module.exports = { createCheckout };

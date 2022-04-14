@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "",
-    "database": "",
+    "password": "@RedCode2@",
+    "database": "groupproject",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

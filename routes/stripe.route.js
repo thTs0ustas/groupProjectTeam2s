@@ -4,8 +4,8 @@ const express = require("express");
 const router = express.Router();
 
 const { authenticateJWT } = require("../auth/authenticated");
-const { createChechout } = require("./controllers/stripe/createCheckout");
+const { createCheckout } = require("./controllers/stripe/createCheckout");
 
-router.post("/create-checkout", authenticateJWT, createChechout);
+router.post("/create-checkout", authenticateJWT, createCheckout);
 
 module.exports = router;

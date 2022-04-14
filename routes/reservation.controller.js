@@ -1,8 +1,10 @@
 const express = require("express");
+
 const { Op } = require("sequelize");
 const router = express.Router();
 const db = require("../models");
-const { Reservation, User, Screening, ReservedSeat } = db.sequelize.models;
+const { Reservation, User, Seat, Screening, ReservedSeat } =
+  db.sequelize.models;
 
 // User Reservations for a screening
 router.get("/users/:id", async (req, res) => {
@@ -57,11 +59,11 @@ router.post("/users/:username/new", async (req, res) => {
   const reservation = await user.createReservation({
     screening_id: req.body.data.screening_id,
     total_cost: req.body.data.price,
-
     purchase_date: new Date(),
   });
 
-  req.body.data.seats.forEach((seat) =>
+  // Create a new reserved seat for each seat in the reservation
+  const resToSeats = req.body.data.seats.map((seat) =>
     reservation.createReservedSeat({
       reservation_id: reservation.id,
       cost: seat.cost,
@@ -71,12 +73,30 @@ router.post("/users/:username/new", async (req, res) => {
     })
   );
 
+  await Promise.allSettled(resToSeats);
+
   const userWithNewRes = await User.findOne({
     where: { username: req.params.username },
-    include: [Reservation],
-    attributes: { exclude: ["createdAt", "updatedAt"] },
+    attributes: ["id", "first_name", "last_name"],
+    include: [
+      {
+        model: Reservation,
+        where: { id: reservation.id },
+        attributes: ["id", "purchase_date", "total_cost"],
+        include: [Screening],
+      },
+    ],
   });
-  res.json(userWithNewRes);
+
+  const reservedSeats = await ReservedSeat.findAll({
+    where: { reservation_id: reservation.id },
+    include: [
+      { model: Seat, attributes: { exclude: ["createdAt", "updatedAt"] } },
+    ],
+    attributes: ["id", "cost", "discount_type"],
+  });
+
+  res.json({ userWithNewRes, reservedSeats });
 });
 
 // Display a Full Ticket
@@ -93,12 +113,10 @@ router.get("/users/:username/ticket/:reservationId", async (req, res) => {
           {
             model: ReservedSeat,
             attributes: { exclude: ["createdAt", "updatedAt"] },
-            include: [
-              {
-                model: Screening,
-                attributes: { exclude: ["createdAt", "updatedAt"] },
-              },
-            ],
+          },
+          {
+            model: Screening,
+            attributes: { exclude: ["createdAt", "updatedAt"] },
           },
         ],
       },
