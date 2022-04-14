@@ -20,6 +20,9 @@ module.exports = {
       genre: {
         type: Sequelize.STRING,
       },
+      release_year: {
+        type: Sequelize.INTEGER,
+      },
       image: {
         type: Sequelize.STRING,
       },
