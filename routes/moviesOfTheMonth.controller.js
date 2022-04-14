@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
-const { Movie, MovieOfTheMonth } = db.sequelize.models;
+const { Movie, MovieOfTheMonth, Screenings } = db.sequelize.models;
 
 router.get("/", async (req, res) => {
   const moviesOfTheMonth = await MovieOfTheMonth.findAll({
@@ -14,6 +14,22 @@ router.get("/", async (req, res) => {
   console.log(moviesOfTheMonth)
   res.json(moviesOfTheMonth);
 });
+
+router.get("/homepageLayout", async (req, res) => {
+  const moviesOfTheMonth = await MovieOfTheMonth.findAll({
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+    include: [{
+      model: Movie,
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    }, {
+      model: Screenings,
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    }]
+  });
+  console.log(moviesOfTheMonth)
+  res.json(moviesOfTheMonth);
+});
+
 
 
 router.post("/add", async (req, res) => {
