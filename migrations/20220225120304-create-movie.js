@@ -20,6 +20,9 @@ module.exports = {
       genre: {
         type: Sequelize.STRING,
       },
+      release_year: {
+        type: Sequelize.INTEGER,
+      },
       image: {
         type: Sequelize.STRING,
       },
@@ -33,7 +36,7 @@ module.exports = {
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.dropTable("movies");
   },
 };

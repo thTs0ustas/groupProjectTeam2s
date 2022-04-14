@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const db = require("../models");
 const { User } = db.sequelize.models;
 const { Op } = require("sequelize");
@@ -8,16 +8,16 @@ const authenticateJWT = (req, res, next) => {
   //
   //  Take header authorization from request
   //
-  console.log(req.body);
-
   const authHeader = req.headers.authorization;
 
   //
   //  if header authorization exist
   // take the token string from it
   //
+
+  let token;
   if (authHeader) {
-    const token = authHeader.split(" ")[1];
+    token = authHeader.split(" ")[1];
     //
     //  Checks if token exists else sends dack an error
     //
@@ -26,6 +26,7 @@ const authenticateJWT = (req, res, next) => {
         message: "No token provided!",
       });
     }
+
     //
     //  Varify token
     //
@@ -42,6 +43,7 @@ const authenticateJWT = (req, res, next) => {
           [Op.and]: [{ username: req.body.username }, { access_token: token }],
         },
       });
+
       //
       //  Varify the existance of the user
       //
