@@ -27,20 +27,19 @@ router.get("/", async (req, res) => {
 router.get("/homepageLayout", async (req, res) => {
   const moviesOfTheMonth = await MovieOfTheMonth.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
-    include: [
-      {
-        model: Movie,
-        attributes: { exclude: ["createdAt", "updatedAt"] },
-      },
-      {
-        model: Screening,
-        attributes: { exclude: ["createdAt", "updatedAt"] },
-      },
-    ],
+    include: [{
+      model: Movie,
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    }, {
+      model: Screening,
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    }]
   });
-  console.log(moviesOfTheMonth);
+  console.log(moviesOfTheMonth)
   res.json(moviesOfTheMonth);
 });
+
+
 router.get("/:id", async (req, res) => {
   const movie = await MovieOfTheMonth.findByPk(req.params.id, {
     attributes: ["id"],
