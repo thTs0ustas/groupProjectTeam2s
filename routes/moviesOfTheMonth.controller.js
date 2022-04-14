@@ -39,6 +39,24 @@ router.get("/homepageLayout", async (req, res) => {
   res.json(moviesOfTheMonth);
 });
 
+router.get("/:id", async (req, res) => {
+  const movieOfTheMonth = await MovieOfTheMonth.findOne({
+    where: { id: req.params.id },
+    attributes: { exclude: ["id","createdAt", "updatedAt", "movie_id", "admin_id"] },
+    include: [
+      {
+        model: Movie,
+        attributes: { exclude: ["id","createdAt", "updatedAt"] },
+      },
+      {
+        model: Screening,
+        attributes: ["auditorium_id", "movie_starts", "movie_ends", "movie_date"],
+      }
+    ]
+  })
+  console.log(movieOfTheMonth)
+  res.json(movieOfTheMonth);
+});
 
 router.get("/:id", async (req, res) => {
   const movie = await MovieOfTheMonth.findByPk(req.params.id, {

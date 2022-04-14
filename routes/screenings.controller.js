@@ -44,12 +44,11 @@ router.get("/:id", async (req, res) => {
         },
       },
     ],
-  
-    })
+    });
+
   console.log(screening)
   res.json(screening);
 })
-
 
 router.post("/add", async function (req, res) {
   const {
