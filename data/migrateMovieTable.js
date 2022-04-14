@@ -5,7 +5,7 @@ const movies = require("./movies.json");
 
 const migrate = async () => {
   movies.forEach(async (movie) => {
-    await Movie.update({
+    await Movie.create({
       id: movie.id,
       title: movie.title,
       description: movie.description,
