@@ -1,11 +1,11 @@
 {
   "development": {
     "username": "root",
-    "password": "",
-    "database": "",
+    "password": "loungelizard",
+    "database": "groupcinema",
     "host": "127.0.0.1",
     "dialect": "mysql"
-  },
+  }, 
   "development_th": {
     "username": "root",
     "password": "@RedCode2@",

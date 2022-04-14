@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
-const { Movie, MovieOfTheMonth } = db.sequelize.models;
+const { Movie, MovieOfTheMonth, Screening } = db.sequelize.models;
 
 router.get("/", async (req, res) => {
   const moviesOfTheMonth = await MovieOfTheMonth.findAll({
@@ -14,6 +14,8 @@ router.get("/", async (req, res) => {
   console.log(moviesOfTheMonth)
   res.json(moviesOfTheMonth);
 });
+
+
 
 
 router.post("/add", async (req, res) => {

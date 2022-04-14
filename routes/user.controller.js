@@ -5,6 +5,7 @@ const { authenticateJWT } = require("../auth/authenticated");
 
 const { Op } = require("sequelize");
 const db = require("../models");
+const { has } = require("lodash");
 const { User } = db.sequelize.models;
 
 const router = express.Router();
@@ -52,8 +53,34 @@ router.post("/create", async (req, res) => {
   res.json({ error: "User already exists" });
 });
 
+
+
+//Update User in page User Info
+router.put("/update/:username", async (req, res) => {
+  const { accesstoken, username,  email, password, first_name, last_name, address, postal, birth_date } = req.body
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = await User.update({
+   username: username,
+   password: hashedPassword,
+   first_name: first_name,
+   last_name: last_name,
+   address: address,
+   access_token: accesstoken,
+   email: email,
+   postal: postal,
+   birth_date: birth_date
+  },
+  {where: {username: req.params.username}
+})
+  
+  res.json(user)
+})
+
+
+
 router.get("/:username", async (req, res) => {
-  const user = await User.findOne({ where: { username: req.params.username } });
+  const user = await User.findOne({ where: { username: req.params.username },attributes: {exclude: ["password"] } }
+    );
   res.json(user);
 });
 
