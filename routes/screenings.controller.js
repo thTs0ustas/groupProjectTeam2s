@@ -32,6 +32,29 @@ router.get("/", async function (req, res) {
   res.json(screenings);
 });
 
+router.get("/:id", async (req, res) => {
+
+  const screening = await Screening.findOne({
+
+    attributes: ["id","auditorium_id", "movie_starts", "movie_ends", "movie_date"],
+
+    include: [
+      {
+        model: MovieOfTheMonth,
+        where: {id: req.params.id},
+        attributes: ["id"],
+        include: {
+          model: Movie,
+          attributes: ["id", "title", "duration", "genre"],
+        },
+      },
+    ],
+    });
+
+  console.log(screening)
+  res.json(screening);
+})
+
 router.post("/add", async function (req, res) {
   const {
     movies_month_id,
