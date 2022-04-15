@@ -60,7 +60,7 @@ router.get("/:id", async (req, res) => {
 
 router.get("/reservation/:id", async (req, res) => {
   const movie = await MovieOfTheMonth.findByPk(req.params.id, {
-    attributes: ["id"],
+    attributes: ["id","movie_id"],
     include: [
       {
         model: Movie,
