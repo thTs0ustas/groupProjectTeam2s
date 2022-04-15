@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const db = require("../../../models");
 const { User } = db.sequelize.models;
+const crypto = require("crypto");
 
 const guest = async (req, res) => {
   const { first_name, last_name, email } = req.body;

@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
           is: /^\S+@\S+\.\S+$/,
         },
       },
+      isMember: DataTypes.BOOLEAN,
       postal: DataTypes.STRING,
       birth_date: DataTypes.DATE,
       isAdmin: DataTypes.BOOLEAN,

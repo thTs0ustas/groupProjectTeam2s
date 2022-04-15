@@ -45,6 +45,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         default: 0,
       },
+      isMember: {
+        type: Sequelize.BOOLEAN,
+        default: 0,
+      },
       access_token: {
         type: Sequelize.STRING,
       },

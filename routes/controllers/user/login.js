@@ -36,6 +36,7 @@ const login = async (req, res) => {
       return res.json({
         username: user.username,
         accessToken,
+        isMember: user.isMember,
       });
     } catch (e) {
       res.json({ error: "An error occurred" + e });

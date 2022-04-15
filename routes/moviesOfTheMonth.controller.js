@@ -58,7 +58,7 @@ router.get("/:id", async (req, res) => {
   res.json(movieOfTheMonth);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/reservation/:id", async (req, res) => {
   const movie = await MovieOfTheMonth.findByPk(req.params.id, {
     attributes: ["id"],
     include: [
@@ -71,18 +71,19 @@ router.get("/:id", async (req, res) => {
 
   const screenings = await Screening.findAll({
     where: { movies_month_id: movie.id },
-    include: [{ model: ReservedSeat, attributes: ["id", "seats_id"] }],
+    include: [{ model: ReservedSeat, attributes: ["id", "seats_id","screening_id"] }],
     attributes: { exclude: ["createdAt", "updatedAt"] },
   });
 
   const auditoriums = await Auditorium.findAll({
+
     where: {
       id: { [Op.or]: [...new Set(screenings.map((s) => s.auditorium_id))] },
     },
     include: [
       { model: Seat, attributes: { exclude: ["createdAt", "updatedAt"] } },
       { model: Cinema, attributes: ["id", "address"] },
-    ],
+    ], 
   });
 
   res.json({ movie, screenings, auditoriums });
