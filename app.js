@@ -17,6 +17,7 @@ const auditoriumController = require("./routes/auditorium.controller");
 const seatsController = require("./routes/seats.route");
 const reserveSeatsController = require("./routes/reservedSeats.controller");
 const paymentsController = require("./routes/stripe.route");
+const adminController = require("./routes/admin.route");
 
 const app = express();
 app.use(logger("dev"));
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/admin", adminController);
 app.use("/movies", moviesRouter);
 app.use("/moviesOfTheMonth", mOfMonthRouter);
 app.use("/users", usersRouter);

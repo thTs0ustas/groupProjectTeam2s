@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models");
 const { Movie, User } = db.sequelize.models;
 const { authenticateJWT, isAdminCheck } = require("../auth/authenticated");
-const { filter, map, keys, forEach } = require("lodash");
+const { keys, forEach } = require("lodash");
 
 router.get("/", async (req, res) => {
   const movies = await Movie.findAll({
@@ -39,14 +39,16 @@ router.get("/:title", async (req, res) => {
   res.json(movies);
 });
 
-router.post("/create", async (req, res) => {
-  const { title, description, duration, genre } = req.body;
-
+router.post("/create", authenticateJWT, isAdminCheck, async (req, res) => {
+  const { title, description, duration, genre, releaseYear } = req.body.values;
+  console.log(releaseYear);
   const newMovies = await Movie.create({
     title,
     description,
     duration,
-    genre /* image */,
+    genre,
+    release_year: +releaseYear,
+    /* image */
   });
   res.json(newMovies);
 });

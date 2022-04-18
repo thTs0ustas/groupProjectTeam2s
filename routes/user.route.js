@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const { authenticateJWT } = require("../auth/authenticated");
+const { authenticateJWT, isAdminCheck } = require("../auth/authenticated");
 
 const { newUser } = require("./controllers/user/newUser");
 const { login } = require("./controllers/user/login");
@@ -11,7 +11,7 @@ const { fetchAUser } = require("./controllers/user/fetchAUser");
 
 const router = express.Router();
 
-router.get("/", fetchUsers);
+router.get("/", authenticateJWT, isAdminCheck, fetchUsers);
 router.get("/:username", authenticateJWT, fetchAUser);
 router.post("/create", newUser);
 router.post("/logout", authenticateJWT, logout);
