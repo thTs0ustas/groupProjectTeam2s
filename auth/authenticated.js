@@ -10,14 +10,15 @@ const authenticateJWT = (req, res, next) => {
   //
 
   const authHeader = req.headers.authorization;
-  const username = req.params.username || req.body.username;
- 
+  const username = req.params.username || req.body.username || 'th'
+  
   //
   //  if header authorization exist
   // take the token string from it
   //
-
   
+  
+  console.log(authHeader);
   if (authHeader) {
     let token = authHeader.split(" ")[1];
     //
@@ -27,6 +28,8 @@ const authenticateJWT = (req, res, next) => {
       return res.status(403).send({
         message: "No token provided!",
       });
+      
+
     }
 
     //

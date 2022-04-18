@@ -2,14 +2,30 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const { Movie, User } = db.sequelize.models;
-// const { authenticateJWT } = require("../auth/authenticated");
+const { authenticateJWT, isAdminCheck } = require("../auth/authenticated");
+const { filter, map, keys, forEach } = require("lodash");
 
 router.get("/", async (req, res) => {
   const movies = await Movie.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
-    include: { model: User, as: "reviewed_by", attributes: ["id", "username"] },
+    // include: { model: User, as: "reviewed_by", attributes: ["id", "username"] },
   });
   res.json(movies);
+});
+//authenticateJWT,isAdminCheck
+router.put("/update", authenticateJWT, isAdminCheck, async (req, res) => {
+  const values = req.body.values;
+  const updates = {};
+  console.log(values);
+
+  forEach(keys(values), (item) => {
+    if (values[item]) updates[item] = values[item];
+  });
+  const movie = await Movie.update(
+    { ...updates },
+    { where: { id: req.body.id } }
+  );
+  res.json(movie);
 });
 
 router.get("/:title", async (req, res) => {

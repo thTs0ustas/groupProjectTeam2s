@@ -14,7 +14,7 @@ const login = async (req, res) => {
     password = req.body.password;
   }
 
-  const user = await User.findOne({ where: { username }, raw: true });
+  const user = await User.findOne( { username } );
 
   if (user === null) {
     return res.json({ message: "No user with that username" });
@@ -37,6 +37,7 @@ const login = async (req, res) => {
         username: user.username,
         accessToken,
         isMember: user.isMember,
+        isAdmin: user.isAdmin
       });
     } catch (e) {
       res.json({ error: "An error occurred" + e });
