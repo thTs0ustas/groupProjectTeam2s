@@ -1,5 +1,5 @@
 const db = require("../../../models");
-const { Movie } = db.sequelize.models;
+const { Movie, MovieOfTheMonth } = db.sequelize.models;
 
 const getMovies = async (req, res) => {
   const movies = await Movie.findAll({
@@ -8,4 +8,17 @@ const getMovies = async (req, res) => {
   res.json(movies);
 };
 
-module.exports = getMovies;
+const getMoviesNotPlaying = async (req, res) => {
+  const moviesOfTheMonth = await MovieOfTheMonth.findAll({
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+  });
+  const movies = await Movie.findAll({
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+  });
+  const moviesNotPlaying = movies.filter(
+    (movie) => !moviesOfTheMonth.some((movieOfTheMonth) => movie.id === movieOfTheMonth.movie_id)
+  );
+  res.json(moviesNotPlaying);
+};
+
+module.exports = { getMovies, getMoviesNotPlaying };
