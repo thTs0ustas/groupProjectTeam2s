@@ -14,7 +14,8 @@ const login = async (req, res) => {
     password = req.body.password;
   }
 
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ where: { username } });
+  console.log(user);
 
   if (user === null) {
     return res.json({ message: "No user with that username" });
@@ -22,16 +23,13 @@ const login = async (req, res) => {
 
   if (await bcrypt.compare(password, user.password)) {
     try {
-      const accessToken = jwt.sign(
-        { username: user.username, isAdmin: user.isAdmin },
-        process.env.ACCESS_TOKEN_SECRET
-      );
+      const accessToken = jwt.sign({ username: user.username, isAdmin: user.isAdmin }, process.env.ACCESS_TOKEN_SECRET);
 
       await User.update({ access_token: accessToken }, { where: { username: user.username } });
 
       return res.json({
         id: user.id,
-        username: user.username,
+        username,
         accessToken,
         isMember: user.isMember,
         isAdmin: user.isAdmin,
