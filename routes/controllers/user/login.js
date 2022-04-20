@@ -14,7 +14,7 @@ const login = async (req, res) => {
     password = req.body.password;
   }
 
-  const user = await User.findOne( { username } );
+  const user = await User.findOne({ username });
 
   if (user === null) {
     return res.json({ message: "No user with that username" });
@@ -25,19 +25,16 @@ const login = async (req, res) => {
       const accessToken = jwt.sign(
         { username: user.username, isAdmin: user.isAdmin },
         process.env.ACCESS_TOKEN_SECRET
-        
       );
 
-      await User.update(
-        { access_token: accessToken },
-        { where: { username: user.username } }
-      );
+      await User.update({ access_token: accessToken }, { where: { username: user.username } });
 
       return res.json({
+        id: user.id,
         username: user.username,
         accessToken,
         isMember: user.isMember,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
       });
     } catch (e) {
       res.json({ error: "An error occurred" + e });
