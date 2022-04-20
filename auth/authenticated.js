@@ -10,15 +10,13 @@ const authenticateJWT = (req, res, next) => {
   //
 
   const authHeader = req.headers.authorization;
-  const username = req.params.username || req.body.username || 'th'
-  
+  const username = req.params.username || req.body.username || "th";
+
   //
   //  if header authorization exist
   // take the token string from it
   //
-  
-  
-  console.log(authHeader);
+
   if (authHeader) {
     let token = authHeader.split(" ")[1];
     //
@@ -28,16 +26,12 @@ const authenticateJWT = (req, res, next) => {
       return res.status(403).send({
         message: "No token provided!",
       });
-      
-
     }
 
     //
     //  Varify token
     //
-    jwt.verify(token, 
-      process.env.ACCESS_TOKEN_SECRET, 
-      async (err, user) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) => {
       if (err) {
         return res.sendStatus(403);
       }
@@ -45,10 +39,10 @@ const authenticateJWT = (req, res, next) => {
       //
       //  Find user based on the params.id
       //
-    
+
       const validUser = await User.findOne({
         where: {
-          [Op.and]: [{ username: username  }, { access_token: token }],
+          [Op.and]: [{ username: username }, { access_token: token }],
         },
       });
       //

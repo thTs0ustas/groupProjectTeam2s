@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
           name: "reservation_id",
           allowNull: false,
         },
+        onDelete: "CASCADE",
+        hooks: true,
       });
     }
   }

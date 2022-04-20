@@ -12,6 +12,9 @@ const getMoviesOfTheMonth = require("./controllers/admin/getMoviesOfTheMonth");
 const createMovie = require("./controllers/admin/createMovie");
 const updateMovie = require("./controllers/admin/updateMovie");
 const createMovieOfTheMonth = require("./controllers/admin/creathMovieOfTheMonth");
+const deleteScreening = require("./controllers/admin/deleteScreening");
+const deleteMovieOfTheMonth = require("./controllers/admin/deleteMovieOfTheMonth");
+const deleteUser = require("./controllers/admin/deleteUser");
 
 const router = express.Router();
 // Get data from the database
@@ -27,11 +30,11 @@ router.put("/update/screening/:id", authenticateJWT, isAdminCheck, updateScreeni
 // Create data in the database
 router.post("/:username/screening/create", authenticateJWT, isAdminCheck, createScreening);
 router.post("/:username/movie/create", authenticateJWT, isAdminCheck, createMovie);
-router.post(
-  "/:username/movieOfTheMonth/create",
-  authenticateJWT,
-  isAdminCheck,
-  createMovieOfTheMonth
-);
+router.post("/:username/movieOfTheMonth/create", authenticateJWT, isAdminCheck, createMovieOfTheMonth);
+
 //  Delete data in the database
+router.delete("/:username/screening/delete/:id", authenticateJWT, isAdminCheck, deleteScreening);
+router.delete("/:username/movieOfTheMonth/delete/:id", authenticateJWT, isAdminCheck, deleteMovieOfTheMonth);
+router.delete("/:username/user/delete/:id", authenticateJWT, isAdminCheck, deleteUser);
+
 module.exports = router;

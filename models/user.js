@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       });
       User.hasMany(models.Reservation, {
         foreignKey: { name: "user_id", allowNull: false },
+        onDelete: "CASCADE",
+        hooks: true,
       });
     }
   }
