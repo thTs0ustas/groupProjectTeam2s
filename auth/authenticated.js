@@ -8,9 +8,8 @@ const authenticateJWT = (req, res, next) => {
   //
   //  Take header authorization from request
   //
-
+  const username = req.params.username || req.body.username;
   const authHeader = req.headers.authorization;
-  const username = req.params.username || req.body.username || "th";
 
   //
   //  if header authorization exist
