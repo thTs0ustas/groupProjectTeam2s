@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const { authenticateJWT, isAdminCheck } = require("../auth/authenticated");
 
-const { newUser } = require("./controllers/user/newUser");
+const { newUser, checkUser } = require("./controllers/user/newUser");
 const { login } = require("./controllers/user/login");
 const { logout } = require("./controllers/user/logout");
 const { guest } = require("./controllers/user/guest");
@@ -17,5 +17,6 @@ router.post("/create", newUser);
 router.post("/logout", authenticateJWT, logout);
 router.post("/guest", guest);
 router.post("/login", login);
+router.post("/create/check", checkUser);
 
 module.exports = router;

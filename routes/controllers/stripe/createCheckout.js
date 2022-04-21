@@ -32,17 +32,18 @@ const createSubscription = async (req, res) => {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      line_items: req.body.data.map((item) => ({
-        quantity: item.quantity,
-        price_data: {
-          currency: "eur",
-          product_data: {
-            name: item.name,
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            currency: "eur",
+            product_data: {
+              name: "Year subscription",
+            },
+            unit_amount: 18000,
           },
-          unit_amount: item.price,
         },
-      })),
-
+      ],
       success_url: "http://localhost:3000/payments/subscription",
       cancel_url: "http://localhost:3000/payments/payment_cancel",
     });

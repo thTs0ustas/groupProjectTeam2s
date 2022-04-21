@@ -1,11 +1,10 @@
 const express = require("express");
 const { Op } = require("sequelize");
-const { Sequelize } = require("../models");
+
 const router = express.Router();
 const db = require("../models");
 const { map, filter } = require("lodash");
-const { Movie, MovieOfTheMonth, Screening, Seat, Auditorium, ReservedSeat, Cinema } =
-  db.sequelize.models;
+const { Movie, MovieOfTheMonth, Screening, Seat, Auditorium, ReservedSeat, Cinema } = db.sequelize.models;
 
 router.get("/", async (req, res) => {
   const moviesOfTheMonth = await MovieOfTheMonth.findAll({
@@ -35,11 +34,13 @@ router.get("/homepageLayout", async (req, res) => {
     ],
   });
 
-  const moviesToReturn = filter( map(moviesOfTheMonth, (item) => 1 === new Date(item.Screenings[0].movie_date).getDay() && item), undefined)
+  const moviesToReturn = filter(
+    map(moviesOfTheMonth, (item) => 1 === new Date(item.Screenings[0].movie_date).getDay() && item),
+    undefined
+  );
   console.log(moviesOfTheMonth);
   res.json(moviesToReturn);
 });
-
 
 router.get("/showingNow", async (req, res) => {
   const showingNowMovies = await MovieOfTheMonth.findAll({
@@ -47,11 +48,10 @@ router.get("/showingNow", async (req, res) => {
     include: {
       model: Movie,
       attributes: { exclude: ["createdAt", "updatedAt"] },
-    }
+    },
   });
   res.json(showingNowMovies);
 });
-
 
 router.get("/:id", async (req, res) => {
   const movieOfTheMonth = await MovieOfTheMonth.findOne({

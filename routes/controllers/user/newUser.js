@@ -31,4 +31,15 @@ const newUser = async (req, res) => {
   return res.json({ message: "Username or email already exists" });
 };
 
-module.exports = { newUser };
+const checkUser = async (req, res) => {
+  const { username, email } = req.body.values;
+  const user = await User.findOne({
+    where: { [Op.or]: [{ username }, { email }] },
+  });
+  if (user) {
+    return res.json({ message: "Username or email already exists" });
+  }
+  return res.redirect("/payments/create-subscription");
+};
+
+module.exports = { newUser, checkUser };
