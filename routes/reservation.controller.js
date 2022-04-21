@@ -3,8 +3,7 @@ const express = require("express");
 const { Op } = require("sequelize");
 const router = express.Router();
 const db = require("../models");
-const { Reservation, User, Seat, Screening, ReservedSeat } =
-  db.sequelize.models;
+const { Reservation, User, Seat, Screening, ReservedSeat, MovieOfTheMonth, Movie } = db.sequelize.models;
 
 // User Reservations for a screening
 router.get("/users/:id", async (req, res) => {
@@ -15,10 +14,7 @@ router.get("/users/:id", async (req, res) => {
         model: Reservation,
         attributes: { exclude: ["createdAt", "updatedAt"] },
         where: {
-          [Op.and]: [
-            { user_id: req.params.id },
-            { screening_id: req.query.screening },
-          ],
+          [Op.and]: [{ user_id: req.params.id }, { screening_id: req.query.screening }],
         },
       },
     },
@@ -90,9 +86,7 @@ router.post("/users/:username/new", async (req, res) => {
 
   const reservedSeats = await ReservedSeat.findAll({
     where: { reservation_id: reservation.id },
-    include: [
-      { model: Seat, attributes: { exclude: ["createdAt", "updatedAt"] } },
-    ],
+    include: [{ model: Seat, attributes: { exclude: ["createdAt", "updatedAt"] } }],
     attributes: ["id", "cost", "discount_type"],
   });
 
@@ -123,6 +117,33 @@ router.get("/users/:username/ticket/:reservationId", async (req, res) => {
     ],
   });
   res.json(ticket);
+});
+
+router.get("/history/:id", async (req, res) => {
+  const history = await User.findAll({
+    where: { id: req.params.id },
+    include: [
+      {
+        model: Reservation,
+        attributes: ["id", "purchase_date", "total_cost"],
+        include: [
+          {
+            model: Screening,
+            attributes: { exclude: ["createdAt", "updatedAt"] },
+            include: {
+              model: MovieOfTheMonth,
+              attributes: { exclude: ["createdAt", "updatedAt", "movie_id", "admin_id"] },
+              include: {
+                model: Movie,
+                attributes: { exclude: ["createdAt", "updatedAt", "id"] },
+              },
+            },
+          },
+        ],
+      },
+    ],
+  });
+  res.json(history);
 });
 
 module.exports = router;

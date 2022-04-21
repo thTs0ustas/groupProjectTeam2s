@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/homepageLayout", async (req, res) => {
-  const today = new Date().getDay();
+  // const today = new Date().getDay();
   const moviesOfTheMonth = await MovieOfTheMonth.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
     include: [
@@ -35,7 +35,7 @@ router.get("/homepageLayout", async (req, res) => {
   });
 
   const moviesToReturn = filter(
-    map(moviesOfTheMonth, (item) => 1 === new Date(item.Screenings[0].movie_date).getDay() && item),
+    map(moviesOfTheMonth, (item) => /*  1 === new Date(item.Screenings[0].movie_date).getDay() && */ item),
     undefined
   );
   console.log(moviesOfTheMonth);
@@ -74,7 +74,7 @@ router.get("/:id", async (req, res) => {
 
 router.get("/reservation/:id", async (req, res) => {
   const movie = await MovieOfTheMonth.findByPk(req.params.id, {
-    attributes: ["id", "movie_id"],
+    attributes: ["id"],
     include: [
       {
         model: Movie,

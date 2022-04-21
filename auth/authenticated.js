@@ -8,9 +8,10 @@ const authenticateJWT = (req, res, next) => {
   //
   //  Take header authorization from request
   //
-  const username = req.params.username || req.body.username;
+  const username = req.params.username || req.body.username || null;
+  const id = req.params.id || req.body.id || null;
   const authHeader = req.headers.authorization;
-
+  console.log(id, username);
   //
   //  if header authorization exist
   // take the token string from it
@@ -18,6 +19,7 @@ const authenticateJWT = (req, res, next) => {
 
   if (authHeader) {
     let token = authHeader.split(" ")[1];
+
     //
     //  Checks if token exists else sends dack an error
     //
@@ -39,11 +41,19 @@ const authenticateJWT = (req, res, next) => {
       //  Find user based on the params.id
       //
 
-      const validUser = await User.findOne({
-        where: {
-          [Op.and]: [{ username: username }, { access_token: token }],
-        },
-      });
+      const validUser =
+        username !== null
+          ? await User.findOne({
+              where: {
+                [Op.and]: [{ username: username }, { access_token: token }],
+              },
+            })
+          : await User.findOne({
+              where: {
+                [Op.and]: [{ id: id }, { access_token: token }],
+              },
+            });
+
       //
       //  Varify the existance of the user
       //
