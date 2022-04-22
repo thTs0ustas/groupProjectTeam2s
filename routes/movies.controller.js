@@ -23,4 +23,12 @@ router.get("/:title", async (req, res) => {
   res.json(movies);
 });
 
+router.get("/genre/:genre", async (req, res) => {
+  const movieByGenre = await Movie.findAll({
+    where: { genre: req.params.genre },
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+  });
+  res.json(movieByGenre);
+});
+
 module.exports = router;
