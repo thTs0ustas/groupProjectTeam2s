@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 
 const router = express.Router();
 const db = require("../models");
-const { map, filter } = require("lodash");
+const { map, filter, sampleSize } = require("lodash");
 const { Movie, MovieOfTheMonth, Screening, Seat, Auditorium, ReservedSeat, Cinema } = db.sequelize.models;
 
 router.get("/", async (req, res) => {
@@ -40,6 +40,28 @@ router.get("/homepageLayout", async (req, res) => {
   );
   console.log(moviesOfTheMonth);
   res.json(moviesToReturn);
+});
+
+router.get("/upcoming", async (req, res) => {
+  const showingNowMovies = await MovieOfTheMonth.findAll({
+    attributes: ["id", "movie_id"],
+  });
+
+  const upcoming = await Movie.findAll(
+    {
+      attributes: ["id", "title", "description", "image", "duration", "genre"],
+      where: {
+        id: {
+          [Op.notIn]: showingNowMovies.map((item) => item.movie_id),
+        },
+      },
+    },
+    12
+  );
+
+  const movies = sampleSize(upcoming, 12);
+  console.log(movies);
+  res.json(movies);
 });
 
 router.get("/showingNow", async (req, res) => {
