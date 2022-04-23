@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
-const { Movie, User } = db.sequelize.models;
+const { Movie, User, MovieOfTheMonth, Screening } = db.sequelize.models;
 
 router.get("/", async (req, res) => {
   const movies = await Movie.findAll({
@@ -10,7 +10,6 @@ router.get("/", async (req, res) => {
   });
   res.json(movies);
 });
-//authenticateJWT,isAdminCheck
 
 router.get("/:title", async (req, res) => {
   console.log(req.params.title);
@@ -29,6 +28,23 @@ router.get("/genre/:genre", async (req, res) => {
     attributes: { exclude: ["createdAt", "updatedAt"] },
   });
   res.json(movieByGenre);
+});
+
+router.get("/moviepage/:id", async (req, res) => {
+  const movieInfo = await Movie.findOne({
+    where: { id: req.params.id },
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+  });
+  const isMovieOfTheMonth = await movieInfo?.getMovieOfTheMonths();
+  const movieOfTheMonthScreenings = await MovieOfTheMonth.findByPk(isMovieOfTheMonth[0]?.id, {
+    include: {
+      model: Screening,
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    },
+  });
+
+  console.log({ movie: movieInfo, screenings: movieOfTheMonthScreenings?.Screenings });
+  res.json({ movie: movieInfo, screenings: movieOfTheMonthScreenings?.Screenings });
 });
 
 module.exports = router;

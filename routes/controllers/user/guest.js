@@ -13,13 +13,12 @@ const guest = async (req, res) => {
     try {
       const randomPassword = crypto.randomBytes(8).toString("hex");
       const user = await User.create({
-        username: `${first_name}_${last_name}_${crypto
-          .randomBytes(4)
-          .toString("hex")}`,
+        username: `${first_name}_${last_name}_${crypto.randomBytes(4).toString("hex")}`,
         first_name,
         last_name,
         password: await bcrypt.hash(randomPassword, 10),
         email,
+        isMember: false,
         isAdmin: false,
       });
 
@@ -29,10 +28,7 @@ const guest = async (req, res) => {
         { expiresIn: 60 * 60 }
       );
 
-      await User.update(
-        { access_token: accessToken },
-        { where: { username: user.username } }
-      );
+      await User.update({ access_token: accessToken }, { where: { username: user.username } });
 
       return res.json({
         username: user.username,

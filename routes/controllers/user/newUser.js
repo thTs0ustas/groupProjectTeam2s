@@ -4,7 +4,18 @@ const { User } = db.sequelize.models;
 const { Op } = require("sequelize");
 
 const newUser = async (req, res) => {
-  const { username, first_name, email, password, last_name, address, postal, birth_date, isAdmin } = req.body;
+  const {
+    username,
+    first_name,
+    email,
+    password,
+    last_name,
+    address,
+    postal,
+    birth_date,
+    isAdmin,
+    isMember = true,
+  } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   const exists = await User.findOne({
     where: { [Op.or]: [{ username }, { email }] },
@@ -20,7 +31,8 @@ const newUser = async (req, res) => {
         address,
         postal,
         birth_date,
-        isAdmin,
+        isMember,
+        isAdmin: isAdmin || false,
       });
 
       return res.json({ message: "New user created" });
