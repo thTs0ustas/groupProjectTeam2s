@@ -6,7 +6,6 @@ const { keys, forEach } = require("lodash");
 const updateUser = async (req, res) => {
   const values = req.body.values;
   const updates = {};
-  console.log(values);
 
   forEach(keys(values), (item) => {
     if (values[item]) updates[item] = values[item];

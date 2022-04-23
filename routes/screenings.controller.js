@@ -5,14 +5,7 @@ const { Screening, MovieOfTheMonth, Movie } = db.sequelize.models;
 
 router.get("/", async function (req, res) {
   let screenings = await Screening.findAll({
-    attributes: [
-      "id",
-      "movie_starts",
-      "movie_ends",
-      "movie_date",
-      "auditorium_id",
-      "movies_month_id",
-    ],
+    attributes: ["id", "movie_starts", "movie_ends", "movie_date", "auditorium_id", "movies_month_id"],
   });
   res.json(screenings);
 });
@@ -32,13 +25,7 @@ router.get("/:movieTitle", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const screening = await Screening.findOne({
-    attributes: [
-      "id",
-      "auditorium_id",
-      "movie_starts",
-      "movie_ends",
-      "movie_date",
-    ],
+    attributes: ["id", "auditorium_id", "movie_starts", "movie_ends", "movie_date"],
     include: [
       {
         model: MovieOfTheMonth,
@@ -52,18 +39,11 @@ router.get("/:id", async (req, res) => {
     ],
   });
 
-  console.log(screening);
   res.json(screening);
 });
 
 router.post("/add", async function (req, res) {
-  const {
-    movies_month_id,
-    auditorium_id,
-    movie_starts,
-    movie_ends,
-    movie_date,
-  } = req.body;
+  const { movies_month_id, auditorium_id, movie_starts, movie_ends, movie_date } = req.body;
 
   const screening = await Screening.create({
     auditorium_id,

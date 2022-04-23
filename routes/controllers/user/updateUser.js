@@ -2,7 +2,6 @@ const db = require("../../../models");
 const { User } = db.sequelize.models;
 
 const updateUserInfo = async (req, res) => {
-  console.log(req.body);
   const { username, email, first_name, last_name, address, postal, birth_date } = req.body;
   await User.update(
     {

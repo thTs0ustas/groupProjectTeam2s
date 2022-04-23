@@ -18,7 +18,6 @@ const deleteMovieOfTheMonth = async (req, res) => {
       message: "MovieOfTheMonth deleted",
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       message: "Internal server error",
     });

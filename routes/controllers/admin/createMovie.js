@@ -3,7 +3,7 @@ const { Movie } = db.sequelize.models;
 
 const createMovie = async (req, res) => {
   const { title, description, duration, genre, releaseYear } = req.body.values;
-  console.log(releaseYear);
+
   const newMovies = await Movie.create({
     title,
     description,

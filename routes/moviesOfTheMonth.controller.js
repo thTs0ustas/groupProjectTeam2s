@@ -38,7 +38,7 @@ router.get("/homepageLayout", async (req, res) => {
     map(moviesOfTheMonth, (item) => /*  1 === new Date(item.Screenings[0].movie_date).getDay() && */ item),
     undefined
   );
-  console.log(moviesOfTheMonth);
+
   res.json(moviesToReturn);
 });
 
@@ -60,7 +60,7 @@ router.get("/upcoming", async (req, res) => {
   );
 
   const movies = sampleSize(upcoming, 12);
-  console.log(movies);
+
   res.json(movies);
 });
 
@@ -74,25 +74,6 @@ router.get("/showingNow", async (req, res) => {
   });
   res.json(showingNowMovies);
 });
-
-// router.get("/:id", async (req, res) => {
-//   const movieOfTheMonth = await MovieOfTheMonth.findOne({
-//     where: { id: req.params.id },
-//     attributes: { exclude: ["id", "createdAt", "updatedAt", "movie_id", "admin_id"] },
-//     include: [
-//       {
-//         model: Movie,
-//         attributes: { exclude: ["id", "createdAt", "updatedAt"] },
-//       },
-//       {
-//         model: Screening,
-//         attributes: ["auditorium_id", "movie_starts", "movie_ends", "movie_date"],
-//       },
-//     ],
-//   });
-//   console.log(movieOfTheMonth);
-//   res.json(movieOfTheMonth);
-// });
 
 router.get("/reservation/:id", async (req, res) => {
   const movie = await MovieOfTheMonth.findByPk(req.params.id, {

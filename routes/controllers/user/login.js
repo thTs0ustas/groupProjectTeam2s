@@ -15,7 +15,6 @@ const login = async (req, res) => {
   }
 
   const user = await User.findOne({ where: { username } });
-  console.log(user);
 
   if (user === null) {
     return res.json({ message: "No user with that username" });

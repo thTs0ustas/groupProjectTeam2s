@@ -7,16 +7,9 @@ const createScreening = async (req, res) => {
   const newScreeningData = {};
   newScreeningData.movies_month_id = +values.movie_id;
   newScreeningData.auditorium_id = values.auditorium_id;
-  newScreeningData.movie_starts = moment(
-    `${values.movie_date} ${values.movie_starts}`,
-    "YYYY-MM-DD HH:mm"
-  ).format();
-  newScreeningData.movie_ends = moment(
-    `${values.movie_date} ${values.movie_ends}`,
-    "YYYY-MM-DD HH:mm"
-  ).format();
+  newScreeningData.movie_starts = moment(`${values.movie_date} ${values.movie_starts}`, "YYYY-MM-DD HH:mm").format();
+  newScreeningData.movie_ends = moment(`${values.movie_date} ${values.movie_ends}`, "YYYY-MM-DD HH:mm").format();
   newScreeningData.movie_date = moment(values.movie_date).format();
-  console.log(newScreeningData);
 
   const newScreening = await Screening.create({
     ...newScreeningData,
