@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           name: "screening_id",
         },
+        onDelete: "CASCADE",
+        hooks: true,
       });
       Screening.belongsTo(models.Auditorium, {
         foreignKey: {
