@@ -16,14 +16,7 @@ module.exports = {
           key: "id",
         },
       },
-      admin_id: {
-        type: Sequelize.INTEGER,
-        // require: true,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

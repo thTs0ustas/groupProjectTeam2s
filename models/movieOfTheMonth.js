@@ -8,18 +8,14 @@ module.exports = (sequelize) => {
           name: "movie_id",
         },
       });
-      MovieOfTheMonth.belongsTo(models.User, {
-        foreignKey: {
-          name: "admin_id",
-        },
-      });
 
       MovieOfTheMonth.hasMany(models.Screening, {
         foreignKey: {
-          name: "movies_month_id"
-        }
-      })
-
+          name: "movies_month_id",
+        },
+        onDelete: "CASCADE",
+        hooks: true,
+      });
     }
   }
   MovieOfTheMonth.init(

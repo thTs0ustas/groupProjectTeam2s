@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
           name: "auditorium_id",
         },
       });
+      Auditorium.hasMany(models.Seat, {
+        foreignKey: {
+          name: "auditorium_id",
+        },
+      });
     }
   }
   Auditorium.init(
@@ -20,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       // cinema_id: DataTypes.INTEGER,
       hall_num: DataTypes.INTEGER,
       total_seats: DataTypes.INTEGER,
-      free_seats: DataTypes.INTEGER,
+      columns: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -1,9 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": "@RedCode2@",
-    "database": "groupproject",
-    "host": "localhost",
+    "username": "root2",
+    "password": "Maria1803",
+    "database": "retro_cinema",
+    "host": "ra1.anystream.eu",
+    "port": 1803,
     "dialect": "mysql"
   },
   "test": {
