@@ -39,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable("Reservations");
+    await queryInterface.dropTable("reservations");
   },
 };
