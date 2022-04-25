@@ -35,7 +35,7 @@ router.get("/homepageLayout", async (req, res) => {
   });
 
   const moviesToReturn = filter(
-    map(moviesOfTheMonth, (item) => today === new Date(item.Screenings[0]?.movie_date).getDay() && item),
+    map(moviesOfTheMonth, (item) => 2 === new Date(item.Screenings[0]?.movie_date).getDay() && item),
     undefined
   );
 

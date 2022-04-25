@@ -1,44 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": "password",
-    "database": "groupproject",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }, 
-  "development_th": {
-    "username": "root",
-    "password": "@RedCode2@",
-    "database": "groupcinema",
-    "host": "localhost",
-    "dialect": "mysql"
-  },
-  "development_kd": {
-    "username": "root",
-    "password": "",
-    "database": "groupproject",
-    "host": "localhost",
-    "dialect": "mysql"
-  },
-  "development_gc": {
-    "username": "root",
-    "password": "",
-    "database": "groupcinema",
-    "host": "localhost",
-    "dialect": "mysql"
-  },
-  "development_fd": {
-    "username": "root",
-    "password": "",
-    "database": "groupproject",
-    "host": "localhost",
-    "dialect": "mysql"
-  },
-  "development_sk": {
-    "username": "root",
-    "password": "",
-    "database": "groupproject",
-    "host": "localhost",
+    "username": "root2",
+    "password": "Maria1803",
+    "database": "retro_cinema",
+    "host": "ra1.anystream.eu",
+    "port": 1803,
     "dialect": "mysql"
   },
   "test": {
