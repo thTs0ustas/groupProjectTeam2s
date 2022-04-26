@@ -13,10 +13,7 @@ const deleteUser = async (req, res) => {
         message: "User not found",
       });
     }
-    // const reserv = [...(await user.getReservations())];
-    // await Promise.all(reserv.map((reservation) => reservation.getReservedSeat().forEach((seat) => seat.destroy())));
-    // await user.removeReservations(reserv);
-    // console.log(reserv);
+
     await user.destroy();
     return res.status(200).json({
       message: "User deleted",

@@ -6,7 +6,6 @@ const { Auditorium /* Cinema */ } = db.sequelize.models;
 router.get("/", async (req, res) => {
   const auditorium = await Auditorium.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
-    // include: { model: Cinema, attributes: ["id", "address"] },
   });
   res.json(auditorium);
 });

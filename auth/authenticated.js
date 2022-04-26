@@ -11,7 +11,7 @@ const authenticateJWT = (req, res, next) => {
   const username = req.params.username || req.body.username || null;
   const id = req.params.id || req.body.id || null;
   const authHeader = req.headers.authorization;
-  console.log(id, username);
+
   //
   //  if header authorization exist
   // take the token string from it
