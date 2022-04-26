@@ -1,0 +1,402 @@
+[
+  {
+    "row_letter": "a",
+    "seat_num": 1,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 2,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 3,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 4,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 5,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 6,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 7,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 8,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 9,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 10,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 11,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 12,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 13,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 14,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 15,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 16,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 17,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 18,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 19,
+    "cost": 15
+  },
+  {
+    "row_letter": "a",
+    "seat_num": 20,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 1,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 2,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 3,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 4,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 5,
+    "cost": "15"
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 6,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 7,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 8,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 9,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 10,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 11,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 12,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 13,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 14,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 15,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 16,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 17,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 18,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 19,
+    "cost": 15
+  },
+  {
+    "row_letter": "b",
+    "seat_num": 20,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 1,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 2,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 3,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 4,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 5,
+    "cost": "15"
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 6,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 7,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 8,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 9,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 10,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 11,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 12,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 13,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 14,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 15,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 16,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 17,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 18,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 19,
+    "cost": 15
+  },
+  {
+    "row_letter": "c",
+    "seat_num": 20,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 1,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 2,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 3,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 4,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 5,
+    "cost": "15"
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 6,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 7,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 8,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 9,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 10,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 11,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 12,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 13,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 14,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 15,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 16,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 17,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 18,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 19,
+    "cost": 15
+  },
+  {
+    "row_letter": "d",
+    "seat_num": 20,
+    "cost": 15
+  }
+]
