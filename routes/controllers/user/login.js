@@ -1,20 +1,21 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const db = require("../../../models");
+const { Op } = require("sequelize");
 const { User } = db.sequelize.models;
 
 const login = async (req, res) => {
-  let username;
+  let usernameEmail;
   let password;
-  if (req.query.username && req.query.password) {
-    username = req.query.username;
+  if (req.query.usernameEmail && req.query.password) {
+    usernameEmail = req.query.usernameEmail;
     password = req.query.password;
   } else {
-    username = req.body.username;
+    usernameEmail = req.body.usernameEmail;
     password = req.body.password;
   }
 
-  const user = await User.findOne({ where: { username } });
+  const user = await User.findOne({ where: { [Op.or]: [{ username: usernameEmail }, { email: usernameEmail }] } });
 
   if (user === null) {
     return res.json({ message: "No user with that username" });
@@ -22,14 +23,23 @@ const login = async (req, res) => {
 
   if (await bcrypt.compare(password, user.password)) {
     try {
-      const accessToken = jwt.sign({ username: user.username, isAdmin: user.isAdmin }, process.env.ACCESS_TOKEN_SECRET);
+      const accessToken = jwt.sign(
+        { username: user.usernameEmail, isAdmin: user.isAdmin },
+        process.env.ACCESS_TOKEN_SECRET
+      );
 
       await User.update({ access_token: accessToken }, { where: { username: user.username } });
 
       return res.json({
         id: user.id,
-        username,
-        accessToken,
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        address: user.address,
+        postal: user.postal,
+        birth_date: user.birth_date,
+        token: accessToken,
         isMember: user.isMember,
         isAdmin: user.isAdmin,
       });

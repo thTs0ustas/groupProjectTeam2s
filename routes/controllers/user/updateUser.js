@@ -16,7 +16,7 @@ const updateUserInfo = async (req, res) => {
     { where: { id: req.params.id } }
   );
   const updatedUser = await User.findByPk(req.params.id, {
-    attributes: ["username"],
+    attributes: ["username", "first_name", "last_name", "address", "email", "postal", "birth_date"],
   });
 
   res.json(updatedUser);
