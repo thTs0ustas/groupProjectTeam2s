@@ -44,7 +44,6 @@ const newUser = async (req, res) => {
 };
 
 const checkUser = async (req, res) => {
-  console.log(req.body);
   const { username, email } = req.body;
   const user = await User.findOne({
     where: { [Op.or]: [{ username }, { email }] },

@@ -3,10 +3,10 @@ const { MovieOfTheMonth } = db.sequelize.models;
 // delete MovieOfTheMonth from the database
 const deleteMovieOfTheMonth = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { movieId } = req.params;
 
     const movieOfTheMonth = await MovieOfTheMonth.findOne({
-      where: { id },
+      where: { id: movieId },
     });
     if (!movieOfTheMonth) {
       return res.status(404).json({

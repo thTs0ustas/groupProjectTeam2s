@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/homepageLayout", async (req, res) => {
-  const today = new Date().getDay();
+  const today = 2; //new Date().getDay();
   const moviesOfTheMonth = await MovieOfTheMonth.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
     include: [

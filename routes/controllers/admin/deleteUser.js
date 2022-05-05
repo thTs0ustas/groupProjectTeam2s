@@ -1,12 +1,12 @@
 const db = require("../../../models");
 const { User } = db.sequelize.models;
-// delete MovieOfTheMonth from the database
+
 const deleteUser = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
 
     const user = await User.findOne({
-      where: { id },
+      where: { id: userId },
     });
     if (!user) {
       return res.status(404).json({

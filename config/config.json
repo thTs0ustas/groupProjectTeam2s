@@ -1,5 +1,5 @@
 {
-  "development": {
+  "test": {
     "username": "root2",
     "password": "Maria1803",
     "database": "retro_cinema",
@@ -7,7 +7,7 @@
     "port": 1803,
     "dialect": "mysql"
   },
-  "test": {
+  "development": {
     "username": "root",
     "password": "@RedCode2@",
     "database": "groupproject",

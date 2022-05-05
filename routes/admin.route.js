@@ -26,7 +26,7 @@ router.get("/:id/getMoviesNotPlaying", authenticateJWT, isAdminCheck, getMoviesN
 router.get("/:id/getMoviesOfTheMonth", authenticateJWT, isAdminCheck, getMoviesOfTheMonth);
 // Update data in the database
 router.put("/:id/update/movie/:movieId", authenticateJWT, isAdminCheck, updateMovie);
-router.put("/:id/update/user", authenticateJWT, isAdminCheck, updateUser);
+router.put("/:id/update/user/:userId", authenticateJWT, isAdminCheck, updateUser);
 router.put("/:id/update/screening/:screeningId", authenticateJWT, isAdminCheck, updateScreening);
 // Create data in the database
 router.post("/:id/screening/create", authenticateJWT, isAdminCheck, createScreening);
@@ -37,6 +37,6 @@ router.post("/:id/movieOfTheMonth/create", authenticateJWT, isAdminCheck, create
 router.delete("/:id/screening/delete/:screeningId", authenticateJWT, isAdminCheck, deleteScreening);
 router.delete("/:id/delete/movie/:movieId", authenticateJWT, isAdminCheck, deleteMovie);
 router.delete("/:id/movieOfTheMonth/delete/:movieId", authenticateJWT, isAdminCheck, deleteMovieOfTheMonth);
-router.delete("/:id/user/delete", authenticateJWT, isAdminCheck, deleteUser);
+router.delete("/:id/user/delete/:userId", authenticateJWT, isAdminCheck, deleteUser);
 
 module.exports = router;
