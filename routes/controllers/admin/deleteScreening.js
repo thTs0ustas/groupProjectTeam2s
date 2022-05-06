@@ -3,10 +3,10 @@ const { Screening } = db.sequelize.models;
 // delete screenings from the database
 const deleteScreening = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { screeningId } = req.params;
 
     const screening = await Screening.findOne({
-      where: { id },
+      where: { id: screeningId },
     });
     if (!screening) {
       return res.status(404).json({
