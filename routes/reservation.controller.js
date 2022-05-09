@@ -48,8 +48,8 @@ router.get("/screenings/:id", async (req, res) => {
 });
 
 // Create a new reservation by a user
-router.post("/users/:username/new", async (req, res) => {
-  const user = await User.findOne({ where: { username: req.params.username } });
+router.post("/users/:id/new", async (req, res) => {
+  const user = await User.findOne({ where: { id: req.params.id } });
 
   // const price = req.body.price
   const reservation = await user.createReservation({
@@ -72,7 +72,7 @@ router.post("/users/:username/new", async (req, res) => {
   await Promise.allSettled(resToSeats);
 
   const userWithNewRes = await User.findOne({
-    where: { username: req.params.username },
+    where: { id: req.params.id },
     attributes: ["id", "first_name", "last_name"],
     include: [
       {
