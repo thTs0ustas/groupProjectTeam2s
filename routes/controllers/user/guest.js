@@ -31,7 +31,13 @@ const guest = async (req, res) => {
       await User.update({ access_token: accessToken }, { where: { username: user.username } });
 
       return res.json({
+        id: user.id,
         username: user.username,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        isMember: false,
+        isAdmin: false,
         accessToken,
       });
     } catch (e) {
